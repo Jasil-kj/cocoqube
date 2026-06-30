@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Global Presence | Blossom Valley Coir</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ffe088",
+                    "on-tertiary-container": "#4f3e00",
+                    "surface-container-highest": "#e6e2db",
+                    "secondary": "#45664c",
+                    "primary": "#604537",
+                    "on-background": "#1c1c18",
+                    "surface-variant": "#e6e2db",
+                    "surface-tint": "#755849",
+                    "tertiary-fixed-dim": "#e9c349",
+                    "on-secondary-fixed": "#01210d",
+                    "outline": "#82746e",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f4f0e9",
+                    "tertiary-container": "#cca830",
+                    "background": "#fdf9f2",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#ffdbca",
+                    "surface": "#fdf9f2",
+                    "inverse-primary": "#e5bfac",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#7a5c4d",
+                    "surface-bright": "#fdf9f2",
+                    "secondary-fixed": "#c6eccb",
+                    "primary-fixed-dim": "#e5bfac",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#abd0b0",
+                    "secondary-container": "#c6eccb",
+                    "surface-container-low": "#f7f3ec",
+                    "surface-dim": "#dddad3",
+                    "on-surface-variant": "#50443f",
+                    "on-primary-fixed-variant": "#5c4133",
+                    "on-surface": "#1c1c18",
+                    "on-secondary-fixed-variant": "#2d4e36",
+                    "on-tertiary-fixed": "#241a00",
+                    "surface-container-high": "#ece8e1",
+                    "on-tertiary-fixed-variant": "#574500",
+                    "tertiary": "#735c00",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#4a6c52",
+                    "inverse-surface": "#31302c",
+                    "on-primary-fixed": "#2b160b",
+                    "outline-variant": "#d3c3bc",
+                    "on-primary-container": "#ffd7c4",
+                    "on-error": "#ffffff",
+                    "surface-container": "#f1ede6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "80px",
+                    "container-max": "1440px",
+                    "unit": "8px",
+                    "margin-mobile": "20px",
+                    "gutter": "32px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .map-dot {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .map-dot:hover {
+            transform: scale(1.5);
+        }
+        .glass-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/60 dark:bg-black/60 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
+<div class="font-display-lg text-body-lg font-bold text-primary dark:text-primary-fixed-dim">
+                Blossom Valley
+            </div>
+<div class="hidden md:flex items-center gap-8 font-body-md text-body-md">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Products</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Export</a>
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1" href="#">Contact</a>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-label-caps uppercase tracking-wider scale-95 active:scale-90 transition-transform hover:bg-secondary transition-all duration-300">
+                Request Quote
+            </button>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Hero Section: Global Ambition -->
+<section class="relative min-h-[614px] flex items-center overflow-hidden px-margin-desktop py-24">
+<div class="max-w-4xl z-10">
+<span class="font-label-caps text-secondary uppercase mb-4 block">Sustainable Footprint</span>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-6">Our Global Presence</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+                    Connecting premium coir craftsmanship from the heart of Asia to luxury sustainable projects worldwide. Discover our international export network and certified supply chain.
+                </p>
+</div>
+<!-- Atmospheric Layering -->
+<div class="absolute right-0 top-0 w-1/2 h-full opacity-10 pointer-events-none">
+
+</div>
+</section>
+<!-- Interactive World Map Section -->
+<section class="bg-surface-container-low py-24 px-margin-desktop">
+<div class="max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-gutter">
+<div class="max-w-xl">
+<h2 class="font-headline-md text-headline-md text-primary mb-4">Export Destinations</h2>
+<p class="text-on-surface-variant">We currently serve over 32 countries with sustainable flooring and agricultural coir solutions.</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2 px-4 py-2 bg-surface rounded-full border border-outline-variant shadow-sm">
+<span class="w-3 h-3 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-caps text-secondary uppercase">Active Exports</span>
+</div>
+</div>
+</div>
+<!-- Bento-style Map Container -->
+<div class="relative aspect-[21/9] bg-white rounded-3xl overflow-hidden shadow-sm border border-outline-variant group">
+<!-- Placeholder Map Image with interactive dots simulated -->
+<div class="absolute inset-0 grayscale opacity-80 transition-all duration-700 group-hover:grayscale-0" data-alt="A stylized minimalist world map in a light beige and soft gray palette. The map has glowing green dots marking export hubs in Europe, North America, Middle East, and Australia. The aesthetic is clean, professional, and sophisticated, matching an organic luxury interior design brand." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9eGq_CmNXlLgD_k0paUXX0xXZx8ajueUPR9miJXwX7apI9Ll5-ZCX90HLiE9AgQwdm44_HlS99-CFVDdQVadKmr_HSrODb5Q7M8S9c7QPWAJhk2DupP5pQVntjiQDf5cVkdTfxT7QCHTFbqr3YPstKGHFf5HiG3sU4l92_pW12Ajb4uAiYl6o5gdtIMJInP3_z9nPx96G05dw32rd44cxMyaFVtaZz84ihCDPiahyDQ9EFs4LqSxJysNBwDqyUvN2vQuHuPMM-vQn')">
+</div>
+<!-- Floating Interactive Dots (Simulated) -->
+<div class="absolute top-[25%] left-[20%] map-dot cursor-pointer" title="New York, USA">
+<span class="material-symbols-outlined text-secondary text-4xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="absolute top-[30%] left-[48%] map-dot cursor-pointer" title="London, UK">
+<span class="material-symbols-outlined text-secondary text-4xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="absolute top-[40%] left-[75%] map-dot cursor-pointer" title="Tokyo, Japan">
+<span class="material-symbols-outlined text-secondary text-4xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="absolute top-[70%] left-[85%] map-dot cursor-pointer" title="Sydney, Australia">
+<span class="material-symbols-outlined text-secondary text-4xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="absolute top-[35%] left-[55%] map-dot cursor-pointer" title="Dubai, UAE">
+<span class="material-symbols-outlined text-secondary text-4xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<!-- Overlay Legend -->
+<div class="absolute bottom-8 left-8 p-6 glass-blur bg-white/60 rounded-2xl border border-white/40 shadow-xl max-w-xs transition-transform duration-500 hover:translate-y-[-4px]">
+<h4 class="font-bold text-primary mb-2">Regional Logistics</h4>
+<p class="text-sm text-on-surface-variant mb-4">Dedicated shipping hubs ensure consistent 14-day delivery to major international ports.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary-container text-on-secondary-container text-[10px] px-2 py-1 rounded-full font-bold uppercase">ISO 9001</span>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] px-2 py-1 rounded-full font-bold uppercase">EcoCert</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Global Inquiries & Form -->
+<section class="py-32 px-margin-desktop bg-surface">
+<div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+<!-- Contact Info & Local Presence -->
+<div class="space-y-16">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary mb-6">International Hubs</h2>
+<p class="font-body-lg text-on-surface-variant mb-10 leading-relaxed">Our headquarters and production facilities are strategically located to maintain direct control over quality and ethical sourcing.</p>
+<div class="space-y-12">
+<!-- Office 1 -->
+<div class="flex gap-6 group">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shrink-0 transition-colors group-hover:bg-secondary">
+<span class="material-symbols-outlined">apartment</span>
+</div>
+<div>
+<h4 class="font-bold text-primary text-xl mb-2">Global Headquarters</h4>
+<p class="text-on-surface-variant">128 Sustainability Way, Coco-Palm District<br/>Colombo 00700, Sri Lanka</p>
+<div class="mt-4 flex items-center gap-4 text-sm font-medium">
+<span class="text-secondary">Mon - Fri: 08:00 - 18:00 (GMT+5:30)</span>
+</div>
+</div>
+</div>
+<!-- Office 2 -->
+<div class="flex gap-6 group">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shrink-0 transition-colors group-hover:bg-secondary">
+<span class="material-symbols-outlined">factory</span>
+</div>
+<div>
+<h4 class="font-bold text-primary text-xl mb-2">Primary Production Facility</h4>
+<p class="text-on-surface-variant">Industrial Zone B, Kurunegala Export Park<br/>North Western Province, Sri Lanka</p>
+<div class="mt-4">
+<a class="inline-flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all" href="#">
+<span>View on Google Maps</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mini Map Integration -->
+<div class="rounded-3xl overflow-hidden h-64 shadow-md border border-outline-variant grayscale hover:grayscale-0 transition-all duration-700">
+<div class="w-full h-full bg-surface-dim flex items-center justify-center relative">
+<div class="absolute inset-0" data-alt="A minimalist bird's eye view Google Maps style image of a coastal industrial area with lush tropical greenery and palm trees. The map pins show 'Blossom Valley HQ' and 'Production Center'. Warm afternoon lighting, soft beige and forest green color tones." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDijVctTT19FYP1NTOT4RPIZ51Jc9iDpDTjxoqEbatmS3s4vi-JvBl5AgKfl8v4dScSti9d7-SW5yHr8cSk1zSH3FnkczrXR4lKn9Rwt-niJdxBLJC2EvNHohGZVPVf1raLUWSx3HvZgVytK5leMrTO_Mz0qVhnYXzoylmVpqZam_rczQ5SoVdi5YSu3UMzEnnCyYrULCvfxbZjji5FyuG3f05tKhV4bTOMnyg--S2AIelTYx5OTEvOCs4QyMfvnSBFPq4sDxDBbHrv')"></div>
+<div class="z-10 bg-white/90 px-6 py-3 rounded-full font-bold shadow-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+<span data-location="Colombo">Colombo, Sri Lanka</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Premium Inquiry Form -->
+<div class="bg-white p-12 rounded-[40px] shadow-sm border border-outline-variant relative overflow-hidden">
+<!-- Subtle pattern overlay -->
+<div class="absolute top-0 right-0 w-32 h-32 opacity-5 bg-secondary -mr-16 -mt-16 rounded-full"></div>
+<h3 class="font-headline-md text-headline-md text-primary mb-8">Send an Inquiry</h3>
+<form action="#" class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label-caps text-on-surface-variant">Full Name</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-xl p-4 focus:ring-0 focus:border-tertiary-container transition-colors" placeholder="e.g. Julianne Smith" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-caps text-on-surface-variant">Company Name</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-xl p-4 focus:ring-0 focus:border-tertiary-container transition-colors" placeholder="e.g. ArchiTerra Ltd" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label-caps text-on-surface-variant">Business Email</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-xl p-4 focus:ring-0 focus:border-tertiary-container transition-colors" placeholder="julianne@architerra.com" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-caps text-on-surface-variant">Target Country</label>
+<select class="w-full bg-surface-container-lowest border-outline-variant rounded-xl p-4 focus:ring-0 focus:border-tertiary-container transition-colors appearance-none">
+<option>Select Region</option>
+<option>North America</option>
+<option>Europe</option>
+<option>Middle East</option>
+<option>Asia Pacific</option>
+</select>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-caps text-on-surface-variant">Project Specifications</label>
+<textarea class="w-full bg-surface-container-lowest border-outline-variant rounded-xl p-4 focus:ring-0 focus:border-tertiary-container transition-colors" placeholder="Tell us about your volume requirements or specific customization needs..." rows="4"></textarea>
+</div>
+<div class="flex items-center gap-3 py-2">
+<input class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary" id="newsletter" type="checkbox"/>
+<label class="text-sm text-on-surface-variant" for="newsletter">I agree to the privacy policy and wish to receive the quarterly sustainability report.</label>
+</div>
+<button class="w-full py-5 bg-primary text-on-primary rounded-full font-bold uppercase tracking-widest hover:bg-secondary transition-all transform hover:scale-[1.01] active:scale-[0.99] shadow-lg" type="submit">
+                            Submit Inquiry
+                        </button>
+</form>
+</div>
+</div>
+</section>
+<!-- Testimonials Section -->
+<section class="py-24 px-margin-desktop bg-surface-container-high relative overflow-hidden">
+<div class="max-w-container-max mx-auto text-center mb-20">
+<h2 class="font-headline-md text-headline-md text-primary mb-4">Trusted by Visionaries</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto">Collaboration with world-renowned design firms and agricultural leaders across the globe.</p>
+</div>
+<!-- Testimonial Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Testimonial 1 -->
+<div class="bg-white p-8 rounded-3xl border border-outline-variant flex flex-col h-full">
+<div class="mb-8 opacity-40 h-8 grayscale hover:grayscale-0 transition-all cursor-default">
+<img class="h-full object-contain" data-alt="A sophisticated minimalist logo for a high-end European architectural firm named 'Nordic Structures' in clean black typography on a white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHewJIt7HzpRn_nZL6VVL6PTRK71-1n1XC6M4nnZHQ9zLR0HoSCnJdxnFsFTYLKshZtwufQqodO_wPWAQBcB9i3XQoLjdPeTVHojVA9Wydg72J5b7BCTWKObtdSQ44AoSXrYYwUuKsVsHRrlxIqM_Vdpv8KNGzXV96HC4NsRrivPpFQbICC_JoR2LRSlDHu-D2Oi751k7hufsIEII9dyMGHnDFSrphgE5b9-tKFZCAkF2zsJ9YlcTEYOLX5W-eEsQnu3P-CqL26Aex"/>
+</div>
+<p class="italic text-on-surface-variant mb-10 flex-grow">"The consistency of Blossom Valley's coir weaves is unparalleled. For our sustainable residential project in Oslo, they provided bespoke textures that redefined organic luxury."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-dim" data-alt="Portrait of a sophisticated professional woman in her 40s with a warm smile, wearing minimalist linen clothing, in a bright high-key studio setting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD4XgcRdW9D0rQdxiXLFme5MUfHcKoX19zzj8ui21TyzdmZOt2bYKCM5h2E8Z77OTAnjCMQR40g0ZuvpBQMOLbIbug7oL7YQxx4xFdwuKq4IURQbNo22iktJw1RGh9oTEVpdhJyywyTEmsvNF-SOEXzJI72W8E3eaHAr4szaAHgiyXy8cyjNhcTCIWIVR-WvKwmXds5T8SoJ21DSsDm-5Vg0N-JBP_NftC2jzx2qarzXm7E_D9nQdg5YQqbHYDTlxvhxvyAh-IGVy0l')"></div>
+<div>
+<p class="font-bold text-primary">Ingrid Vollen</p>
+<p class="text-xs text-secondary font-medium uppercase">Lead Architect, Nordic Structures</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="bg-white p-8 rounded-3xl border border-outline-variant flex flex-col h-full">
+<div class="mb-8 opacity-40 h-8 grayscale hover:grayscale-0 transition-all cursor-default">
+<img class="h-full object-contain" data-alt="A clean, modern logo for a sustainable agricultural enterprise called 'Oasis Greens' featuring a minimalist palm leaf icon and elegant serif typography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYJlROdY9X05orEto8h_I-xDm3e7lNHVIdzS-SxepJYAfP6pm9acGOYoZAY2l3HHtWlicAdqrlbHbNZUjrCVC9TWXyIPwM7ulddwvLfnj0kx-WP00-wvZ_HZYQhba4of9P6FQIvAMxJTv4sKkChw_uQXu_5_ffJd9wDnpZV7K2zhn_ZNi7DexX8ssGT6t-K2Dn6MM7ZplveULMC-6iT0zepF0djZAGcBMqMEksZJPMQUgQ_WM-KC3sM5lDH8YLXhVMzxK-kCXYG1Xh"/>
+</div>
+<p class="italic text-on-surface-variant mb-10 flex-grow">"Blossom Valley isn't just a supplier; they are an innovation partner. Their high-porosity grow mats helped us increase vertical farm yields by 20% while maintaining 100% organic certification."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-dim" data-alt="Portrait of a distinguished man in his 50s with salt and pepper hair, looking professional and friendly, dressed in business casual attire." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBH-G7fhIF1hO_0TpDiHMLLUo94N5zY3J6niirGXv2ipmAviUwjmomKlERmaOpR6038Qofp2w1GeRdJhNdl7BCV6GTg8od1TD3tmpNoSi2nipBBCCPBqVw-3eun2PacY4cBymk5zvq2Fzr8M_bmHXLocE5fzkPQvu2CSzJ-DM1CE-7Ef9mVKFdW1zYSCmQk20PeHgVIC4sPvnCKC3yExaWosT7h8_5XfvWUE8DsGuPn5slY4JQfkzNT6nJkHkSZVKmOcnyzgbnl5Y5Z')"></div>
+<div>
+<p class="font-bold text-primary">Dr. Ahmed Al-Sayed</p>
+<p class="text-xs text-secondary font-medium uppercase">CEO, Oasis Greens Dubai</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="bg-white p-8 rounded-3xl border border-outline-variant flex flex-col h-full">
+<div class="mb-8 opacity-40 h-8 grayscale hover:grayscale-0 transition-all cursor-default">
+<img class="h-full object-contain" data-alt="A minimalist and premium logo for an interior design consultancy called 'Terraform Interiors' using soft earth tones and modern geometric shapes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdtJX4-N8eJ3kXle1VMM55uXL_WV-ceg_m_vP834gJSg_orRJQgI5Q2KR4s6WnWv0GZLHRv5uVWBoxeNeQnXlD0Yl1NRPw7IvEjf2urE5jFDCRJOGrAETCVVqFKJeTTiVIx4Tfpnm_cBM8MLWIl4G6fTwbVAOWBMgjMAIwrMEhobv-4uyj065GUR7w2GNzFTiSFJuHBTiuS_1M2NhihekEE4CJAq7MBY3wB0gCWviurZFowee_B9Bhr2-ArffIQORbnqQOff7AMcZQ"/>
+</div>
+<p class="italic text-on-surface-variant mb-10 flex-grow">"Switching to Blossom Valley coir mats for our luxury hotel chain was the best decision for our CSR goals. The tactile quality combined with their transparent supply chain is exactly what our clients expect."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-dim" data-alt="Portrait of a creative professional woman in her 30s with a modern aesthetic, wearing stylish eyewear and a neutral toned blazer." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDdgD76hlDcBzYlt3ZAsL3B4htjeaYA1LqZDoRKRil6OL_ilqs0JMDGLwA0p6KaxOQS7T89DckVuFsWlEzeT6PHQmwtBg-Yqj_4qUrvR_x1LxC6w5-bQWb5thEUFi5OZwXaI0E4DYxvf9OmoF1OA_ay4JtkxIx8bY-khCXxlrZp_SNAZTaqGBMzubA3o-UQdHu-Vi7FNpOJQ6dWJ1VtzYrtJraKQmWK7GyBNeoangBvLI9pgWylsG8S8UaRV06LPBwBRikRL7mk9CT9')"></div>
+<div>
+<p class="font-bold text-primary">Sarah Jenkins</p>
+<p class="text-xs text-secondary font-medium uppercase">Director, Terraform Interiors</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full rounded-t-xl bg-surface-container dark:bg-surface-dim py-20 px-margin-desktop mt-12">
+<div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="space-y-6">
+<div class="font-display-lg text-headline-md text-primary dark:text-primary-fixed">Blossom Valley</div>
+<p class="text-on-surface-variant pr-8">The standard in sustainable coir exports for the luxury market. Certified, organic, and ethically crafted.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all" href="#">
+<span class="material-symbols-outlined text-xl">language</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all" href="#">
+<span class="material-symbols-outlined text-xl">camera</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-6">Products</h4>
+<ul class="space-y-4 text-on-surface-variant">
+<li><a class="hover:text-secondary transition-colors" href="#">Sustainable Flooring</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Acoustic Paneling</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Eco-Agriculture</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Custom Fiber Blends</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-6">Company</h4>
+<ul class="space-y-4 text-on-surface-variant">
+<li><a class="hover:text-secondary transition-colors" href="#">Certifications</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Our Story</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Sustainability Report</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Careers</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-6">Newsletter</h4>
+<p class="text-sm text-on-surface-variant mb-6">Join our network of sustainable innovators for quarterly updates.</p>
+<div class="relative">
+<input class="w-full bg-white border-outline-variant rounded-full py-4 pl-6 pr-12 focus:ring-0 focus:border-primary" placeholder="Your work email" type="email"/>
+<button class="absolute right-2 top-2 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center hover:bg-secondary transition-colors">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<p class="text-[10px] mt-4 opacity-50">© 2024 Blossom Valley Coir. All rights reserved. Sustainable Luxury.</p>
+</div>
+</div>
+</footer>
+<script>
+        // Smooth scroll for map dots
+        document.querySelectorAll('.map-dot').forEach(dot => {
+            dot.addEventListener('mouseenter', function() {
+                this.style.filter = 'drop-shadow(0 0 10px rgba(69, 102, 76, 0.4))';
+            });
+            dot.addEventListener('mouseleave', function() {
+                this.style.filter = 'none';
+            });
+        });
+
+        // Simple form interaction
+        const inquiryForm = document.querySelector('form');
+        if(inquiryForm) {
+            inquiryForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = inquiryForm.querySelector('button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = 'Sending...';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    btn.innerHTML = 'Sent Successfully';
+                    btn.classList.replace('bg-primary', 'bg-secondary');
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.classList.replace('bg-secondary', 'bg-primary');
+                        btn.disabled = false;
+                        inquiryForm.reset();
+                    }, 3000);
+                }, 1500);
+            });
+        }
+    </script>
+</body></html>

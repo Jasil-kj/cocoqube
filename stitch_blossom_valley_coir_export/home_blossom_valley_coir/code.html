@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blossom Valley | Sustainable Coir Solutions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.1), rgba(253, 249, 242, 1));
+        }
+        .card-hover {
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 40px 80px -20px rgba(96, 69, 55, 0.08);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#ffe088",
+                      "on-tertiary-container": "#4f3e00",
+                      "surface-container-highest": "#e6e2db",
+                      "secondary": "#45664c",
+                      "primary": "#604537",
+                      "on-background": "#1c1c18",
+                      "surface-variant": "#e6e2db",
+                      "surface-tint": "#755849",
+                      "tertiary-fixed-dim": "#e9c349",
+                      "on-secondary-fixed": "#01210d",
+                      "outline": "#82746e",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f4f0e9",
+                      "tertiary-container": "#cca830",
+                      "background": "#fdf9f2",
+                      "error": "#ba1a1a",
+                      "primary-fixed": "#ffdbca",
+                      "surface": "#fdf9f2",
+                      "inverse-primary": "#e5bfac",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "primary-container": "#7a5c4d",
+                      "surface-bright": "#fdf9f2",
+                      "secondary-fixed": "#c6eccb",
+                      "primary-fixed-dim": "#e5bfac",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed-dim": "#abd0b0",
+                      "secondary-container": "#c6eccb",
+                      "surface-container-low": "#f7f3ec",
+                      "surface-dim": "#dddad3",
+                      "on-surface-variant": "#50443f",
+                      "on-primary-fixed-variant": "#5c4133",
+                      "on-surface": "#1c1c18",
+                      "on-secondary-fixed-variant": "#2d4e36",
+                      "on-tertiary-fixed": "#241a00",
+                      "surface-container-high": "#ece8e1",
+                      "on-tertiary-fixed-variant": "#574500",
+                      "tertiary": "#735c00",
+                      "error-container": "#ffdad6",
+                      "on-secondary-container": "#4a6c52",
+                      "inverse-surface": "#31302c",
+                      "on-primary-fixed": "#2b160b",
+                      "outline-variant": "#d3c3bc",
+                      "on-primary-container": "#ffd7c4",
+                      "on-error": "#ffffff",
+                      "surface-container": "#f1ede6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "80px",
+                      "container-max": "1440px",
+                      "unit": "8px",
+                      "margin-mobile": "20px",
+                      "gutter": "32px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "label-caps": ["Inter"],
+                      "headline-md": ["Playfair Display"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Playfair Display"],
+                      "headline-lg": ["Playfair Display"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "label-caps": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/60 dark:bg-black/60 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="font-display-lg text-body-lg font-bold text-primary dark:text-primary-fixed-dim">Blossom Valley</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-body-md text-body-md text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1" href="#">Products</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">About</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Export</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-body-md hover:bg-secondary transition-all duration-300 scale-95 active:scale-90">
+                Request Quote
+            </button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative h-screen w-full flex items-center justify-start overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center scale-105" data-alt="A cinematic, high-resolution macro shot of raw golden coir fiber texture. The lighting is soft and warm, highlighting the intricate, organic strands of the coconut husk. The background is slightly blurred, creating a premium and luxurious feel. The overall aesthetic is minimalist, focusing on the natural, sustainable material with a palette of rich coconut brown and soft cream tones." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-FgMnJiinTapvWPx1EhUetJEQ0dOZLN0FyhOvFkk5mB4n7UvE-2UXzJDjfU4fITBkY1oaHUSbLQXmVS6_Z5iirKIzfMXOVO-iVHuLG5Ym1-zw4zRlRxd8jFCTOOtq-NCaw2CsiRweLICNAwtNGxtb7YZk6m50pD6GOTcVmvdm8oCYTNgYMtuoE7dwZfvyAo-GL7iLQyEyuzA4fED-7L-PGFwuZ_6kIlvvhe6SPWfnfs2t1psIKHXJuMMLDJooY5XvMdygjok79aeq')">
+</div>
+<div class="absolute inset-0 hero-gradient"></div>
+</div>
+<div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max w-full">
+<div class="max-w-3xl">
+<span class="font-label-caps text-label-caps text-secondary mb-4 block uppercase tracking-widest">Premium Organic Export</span>
+<h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-on-surface mb-8">
+                    Sustainable Coir Solutions for Global Markets.
+                </h1>
+<div class="flex flex-wrap gap-4">
+<a class="bg-primary text-on-primary px-8 py-4 rounded-full font-body-md hover:bg-secondary transition-all duration-300" href="#products">
+                        Explore Products
+                    </a>
+<a class="bg-surface-container-high text-on-surface-variant px-8 py-4 rounded-full font-body-md border border-outline-variant hover:bg-surface-variant transition-all duration-300 flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                        Download Catalogue
+                    </a>
+</div>
+</div>
+</div>
+</header>
+<!-- About Section -->
+<section class="py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+<div class="relative">
+<div class="rounded-[40px] overflow-hidden aspect-[4/5]" data-alt="A professional, clean photograph of a sustainable coconut farm in a lush, tropical landscape. Tall coconut palms sway under a soft morning sun. In the foreground, neatly stacked, high-quality processed coir blocks ready for export. The lighting is bright and natural, emphasizing environmental stewardship and industrial excellence in a modern, luxury eco-retail style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCdNDCplj3xE4araY_dF_Z-2ktOp65brj4a9KjDI064OV6fHm2w66tRB8jdzNIgR5Bu9l5lPdsCJZS0yjrK46ulMPYA6m7xlSzAA2BA3Gd_Mbe6W9wy7hijfH6tCyz4GeGx3MV6EPCm3aqHnh0Ex4JI58UdnYF05b-Il-5RxH4Ohor_-jxouGPuLRVI07DzdCDBSIdDsmK3mHSyLsCs4OJP4PsATSJGa6Bl6cnaFfcrj6ULbQah8bh_ys8QY2LyWUnPxalFAtSpPm0m')">
+</div>
+<div class="absolute -bottom-10 -right-10 w-64 h-64 bg-secondary rounded-[32px] p-8 hidden lg:flex flex-col justify-end text-on-secondary">
+<span class="font-display-lg text-headline-lg block">25+</span>
+<p class="font-body-md">Years of Export Excellence across 40+ countries.</p>
+</div>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-6">Pioneering a Greener Future in Horticulture.</h2>
+<p class="text-on-surface-variant text-body-lg mb-10">
+                At Blossom Valley, we transform natural coconut husks into premium growing media. Our journey is rooted in the lush coastal groves where tradition meets modern industrial precision. We bridge the gap between organic rawness and sophisticated global trade.
+            </p>
+<div class="grid grid-cols-2 gap-8">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">eco</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">100% Organic</h4>
+<p class="text-sm text-on-surface-variant">Pure, chemical-free processing.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">public</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Global Reach</h4>
+<p class="text-sm text-on-surface-variant">Trusted by 200+ partners.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose Us: Bento Grid -->
+<section class="bg-surface-container-low py-32">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="text-center max-w-2xl mx-auto mb-20">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-4">Precision in Every Fiber</h2>
+<p class="text-on-surface-variant">Setting the benchmark for premium coir manufacturing and international supply chain logistics.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="bg-white p-10 rounded-[32px] card-hover">
+<span class="material-symbols-outlined text-secondary text-4xl mb-6">temp_preferences_custom</span>
+<h3 class="font-headline-md text-primary text-2xl mb-4">Custom Manufacturing</h3>
+<p class="text-on-surface-variant">Tailored EC and pH levels specific to your crop requirements and regional climates.</p>
+</div>
+<!-- Card 2 -->
+<div class="bg-white p-10 rounded-[32px] card-hover">
+<span class="material-symbols-outlined text-secondary text-4xl mb-6">verified</span>
+<h3 class="font-headline-md text-primary text-2xl mb-4">Quality Assurance</h3>
+<p class="text-on-surface-variant">Triple-washing process ensures ultra-low sodium levels for healthy root development.</p>
+</div>
+<!-- Card 3 -->
+<div class="bg-white p-10 rounded-[32px] card-hover">
+<span class="material-symbols-outlined text-secondary text-4xl mb-6">shop</span>
+<h3 class="font-headline-md text-primary text-2xl mb-4">Worldwide Shipping</h3>
+<p class="text-on-surface-variant">Seamless logistics with real-time tracking from our coastal facilities to your warehouse.</p>
+</div>
+<!-- Card 4 -->
+<div class="bg-white p-10 rounded-[32px] card-hover">
+<span class="material-symbols-outlined text-secondary text-4xl mb-6">nature</span>
+<h3 class="font-headline-md text-primary text-2xl mb-4">Natural Products</h3>
+<p class="text-on-surface-variant">Sustainability at the core—reclaiming waste into high-performance agricultural substrate.</p>
+</div>
+<!-- Card 5 -->
+<div class="bg-white p-10 rounded-[32px] card-hover">
+<span class="material-symbols-outlined text-secondary text-4xl mb-6">workspace_premium</span>
+<h3 class="font-headline-md text-primary text-2xl mb-4">Export Quality</h3>
+<p class="text-on-surface-variant">Stringent international standards compliant with EU and North American regulations.</p>
+</div>
+<!-- Card 6 -->
+<div class="bg-white p-10 rounded-[32px] card-hover">
+<span class="material-symbols-outlined text-secondary text-4xl mb-6">payments</span>
+<h3 class="font-headline-md text-primary text-2xl mb-4">Competitive Pricing</h3>
+<p class="text-on-surface-variant">Direct-from-source pricing without compromising on premium export craftsmanship.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Categories -->
+<section class="py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="products">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+<div class="max-w-xl">
+<span class="font-label-caps text-label-caps text-secondary mb-4 block">Product Range</span>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Crafted Substrates for Modern Horticulture</h2>
+</div>
+<button class="text-primary font-bold flex items-center gap-2 hover:gap-4 transition-all">
+                View All Products <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Product 1 -->
+<div class="group">
+<div class="rounded-[24px] overflow-hidden aspect-[4/3] mb-6 relative">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A minimalist product shot of stackable Coir Pots. The pots are arranged artistically on a warm beige marble surface against a soft cream background. Natural sunlight creates soft shadows. A small green plant is visible in one of the pots to demonstrate use. The style is luxury interior design photography, emphasizing the organic texture of the coir." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6DsHFHOjKckLHRjIFOd2uXGpPBqecup7zuO3yikXBH1LLYtY0SjZO2DwwWbSJucJQyFMIE2n5k1J19O3lFNP32VhpTAWlgQtI-n160FOA5lR8JsLR8iCqVWI5WiUwXVUMqo2JTzUlp20AtFhybzH0mr_AP4u7ybV79hOq2mk2on9yr-waBX1WqZWJWD4CAHsxvhWGB3HlORmgI74ATRnKNsroYwXiq83HmSXUVGxM2Ay0cTAyves0IBeONHJZXbYHMlyG_rj50r3e')">
+</div>
+<div class="absolute top-4 left-4">
+<span class="bg-secondary/90 backdrop-blur-md text-on-secondary text-[10px] px-3 py-1 rounded-full font-label-caps">TOP SELLER</span>
+</div>
+</div>
+<h4 class="font-headline-md text-2xl text-primary mb-2">Coir Pots</h4>
+<p class="text-on-surface-variant mb-4">Biodegradable root-friendly pots for nurseries and home gardening.</p>
+<div class="h-[1px] w-full bg-outline-variant"></div>
+</div>
+<!-- Product 2 -->
+<div class="group">
+<div class="rounded-[24px] overflow-hidden aspect-[4/3] mb-6">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A high-end studio photograph of a 5kg block of premium Coco Peat. The block is clean, perfectly rectangular, and shows its rich, dark fibrous texture. It is placed on a minimalist warm beige plinth with soft studio lighting that highlights its quality. The background is a gradient of soft whites and creams, conveying a sense of purity and premium organic standards." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqEfRT-ZbI1VL8S1Yoy790d6qYJwXXYslKHWT0aJFH1nblZcl3YSVdiVVQZ0vf2vGclNudjmp9p6oPwgDuLI-6N4hMx6JrWXO-KMaAGsdN9vVnUNBZm0qhpmIkg8lURigNkG2xQV0HiiOMsEnOW4khrW88a_1qWtMC8SwcXihuc4kX3EPbcR7lFIW7CmqrgneoZUy93cA24u11fyiF1_u5rxjCWY-BXNMyR_WQOc-KPxjFlk48Bim3w99Vc7sp6rKaqHJVBqS2hB4M')">
+</div>
+</div>
+<h4 class="font-headline-md text-2xl text-primary mb-2">Coco Peat</h4>
+<p class="text-on-surface-variant mb-4">High water-retention substrate for professional greenhouses.</p>
+<div class="h-[1px] w-full bg-outline-variant"></div>
+</div>
+<!-- Product 3 -->
+<div class="group">
+<div class="rounded-[24px] overflow-hidden aspect-[4/3] mb-6">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A lifestyle product shot of heavy-duty Grow Bags in a modern greenhouse setting. Lush green plants are growing vigorously from the white UV-protected bags. The lighting is bright and airy, showing a high-tech agricultural environment. The image emphasizes the scale and professional performance of the Blossom Valley grow bags in a luxury agrarian aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuClIO0nwcj2Pj_4dJJ69aCy3HrfqF7jrafF0FUVsY_QJbgi9wibK9mbt50xo_0xnkOKqXmh4hKkhKwI3l1OQeYTl3LblPqfAI-rHUSPYfWXfy2dS8H4UgREZ-sx1L1-EVAKabIhPdqicxTjqSt-ikkYQyfh5k0nWdsiWws6mph5UydZALDonIzy7sMu2UTLkgIAOQP_ryXaSxgvMWMXQ903SaCS5p2_o9ApVaYb4eELw56nsYa_CC00y56vxxdOaq21xM1XXJ938dA9')">
+</div>
+</div>
+<h4 class="font-headline-md text-2xl text-primary mb-2">Grow Bags</h4>
+<p class="text-on-surface-variant mb-4">UV-stabilized professional bags for hydroponic cultivation.</p>
+<div class="h-[1px] w-full bg-outline-variant"></div>
+</div>
+<!-- Product 4 -->
+<div class="group">
+<div class="rounded-[24px] overflow-hidden aspect-[4/3] mb-6">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A minimalist overhead shot of Coir Discs of varying sizes. They are arranged in a clean, geometric pattern on a light wood surface. The natural brown color of the discs contrasts beautifully with the soft neutral background. Soft side-lighting emphasizes the circular grain and fibrous quality of the pressed coir material. Elegant and modern branding." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqYVl3RtWEGInjD7_T9JyOGq3xEZCHFTWxg51OYHhV4lR9XItsH_pyw7no-5wzfVIWJA0vkzvYaB3-3sFyE0FhThafOpaDUNo8WzML29yCQ76VbNzNlZb8uc3q8bHnPWf0l004gy8kt6BCdcfpnZq4CTvE2lT4j-Nbj_AjSAOfB_S7uQ9ZyZp3TX55SM2welu5I2Pk5k6FM3Qp-U_Odw6AD-5ioRVsEIyz8SYJIyhDh8yGPPA4KIF6cNVaeht5M2LCv-rg7LXDSu0W')">
+</div>
+</div>
+<h4 class="font-headline-md text-2xl text-primary mb-2">Coir Discs</h4>
+<p class="text-on-surface-variant mb-4">Compressed discs for seed starters and decorative planters.</p>
+<div class="h-[1px] w-full bg-outline-variant"></div>
+</div>
+<!-- Product 5 -->
+<div class="group">
+<div class="rounded-[24px] overflow-hidden aspect-[4/3] mb-6">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A professional product image of Coir Poles used as plant supports. A beautiful climbing plant with large green leaves is wrapped around the coir pole. The setup is in a stylish, minimalist living room with warm beige walls and natural sunlight. The image showcases the product as both functional and an aesthetic addition to premium home interiors." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCfNfA2oIuFs35S8WZbKfY49HLn_YbdnQjeyz4A2egC-EDil_I_QMjC0ZuHogvdpr13f1SEiEuX_9nrD8roDWhHTyUHNd4MN2IObU_BYqS_gyMQyejYxsOgAoxUAnWObZfEvX38q7qD2e4wi0X3-xlsKMFpljVByIqmBckvd2SFErcaf2lU53X0e-7LK9c8zfmiHJFh_JirXQkbRFlK_II6g-gkyr6ixl5fTxcCRYtxhBgMrVR9rdIVGYnh0lVNW2zO93s1zh7kMedY')">
+</div>
+</div>
+<h4 class="font-headline-md text-2xl text-primary mb-2">Coir Poles</h4>
+<p class="text-on-surface-variant mb-4">Eco-friendly support for climbing plants and creepers.</p>
+<div class="h-[1px] w-full bg-outline-variant"></div>
+</div>
+<!-- Product 6 -->
+<div class="group">
+<div class="rounded-[24px] overflow-hidden aspect-[4/3] mb-6">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="An industrial-style photograph showing large Coir Logs used for erosion control. The logs are laid out along a pristine riverbank or coastline, demonstrating their protective role in nature. The lighting is crisp and natural, with a focus on the environmental application of the product. The scene is serene and powerful, reflecting the brand's commitment to large-scale sustainable solutions." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBDsU4Rbe2bP9O2KUpzaUKARm9P4Es4NaRkiVbWlG1Uz2Tpqa5saymXXDKI6dvQK7crcJI-Xrz_bHrwgLCqfGPzi3yo3DNnditVrw4P7tIDE5F0OcforTUJ02vPnTLOgnIaPHlmMeSEqWgGsHng902xpGp23TpAveV0Atlh81Lr16iZv5KxxMDLkbWq2ZWcvF7rE29RD6sVy_mjDs6wszpL-rDA7SewIFAhpCFXGb8ZYppRwstOCaJKZiHBLZZH2g23NejmwbqfB4Vf')">
+</div>
+</div>
+<h4 class="font-headline-md text-2xl text-primary mb-2">Coir Logs</h4>
+<p class="text-on-surface-variant mb-4">Heavy-duty solution for erosion control and slope stability.</p>
+<div class="h-[1px] w-full bg-outline-variant"></div>
+</div>
+</div>
+</section>
+<!-- Certifications Section -->
+<section class="py-24 bg-surface-container">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-12 uppercase tracking-widest">Global Standard Certifications</h3>
+<div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-4xl">verified_user</span>
+<span class="font-bold text-xl">ISO 9001:2015</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-4xl">eco</span>
+<span class="font-bold text-xl">Organic Certified</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-4xl">language</span>
+<span class="font-bold text-xl">OMRI Listed</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-4xl">handshake</span>
+<span class="font-bold text-xl">Fair Trade</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest w-full rounded-t-xl mt-20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-20 max-w-container-max mx-auto">
+<div class="md:col-span-1">
+<div class="font-display-lg text-headline-md text-primary dark:text-primary-fixed mb-6">Blossom Valley</div>
+<p class="text-on-surface-variant text-body-md mb-6">Sustainable luxury for global horticultural markets. Crafting excellence from the heart of the tropics.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary hover:bg-secondary hover:text-white transition-all" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary hover:bg-secondary hover:text-white transition-all" href="#"><span class="material-symbols-outlined">mail</span></a>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-6">Products</h4>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Coco Peat Blocks</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Coir Garden Pots</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Erosion Control Logs</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Hydroponic Grow Bags</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-6">Company</h4>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Our Story</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Sustainability</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Certifications</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Global Export</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-6">Newsletter</h4>
+<p class="text-on-surface-variant text-sm mb-4">Stay updated with our latest sustainable solutions and market insights.</p>
+<div class="flex">
+<input class="bg-white border-none rounded-l-full px-4 py-3 w-full focus:ring-1 focus:ring-secondary" placeholder="Email address" type="email"/>
+<button class="bg-secondary text-white px-6 py-3 rounded-r-full hover:bg-primary transition-colors">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant/30 py-8 text-center px-margin-mobile">
+<p class="text-on-surface-variant text-sm">© 2024 Blossom Valley Coir. All rights reserved. Sustainable Luxury.</p>
+</div>
+</footer>
+<script>
+        // Smooth reveal on scroll for elements
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+
+        // Simple parallax effect for hero background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImage = document.querySelector('header .bg-cover');
+            if (heroImage) {
+                heroImage.style.transform = `translateY(${scrolled * 0.1}px) scale(1.05)`;
+            }
+        });
+    </script>
+</body></html>
