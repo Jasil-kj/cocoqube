@@ -71,36 +71,36 @@ export default function Navbar() {
           />
           <div className="fixed top-24 left-4 right-4 z-50 md:hidden bg-surface dark:bg-[#1a1a1a] shadow-2xl border border-outline-variant/30 rounded-[28px] overflow-hidden flex flex-col p-6 gap-2 animate-in fade-in slide-in-from-top-8 duration-300">
             <Link
-              className="font-body-md text-lg font-medium text-on-surface p-4 rounded-2xl hover:bg-surface-container-high transition-colors active:bg-surface-variant flex items-center justify-between group"
+              className="font-body-md text-lg font-medium text-gray-900 dark:text-gray-100 p-4 rounded-2xl hover:bg-surface-container-high dark:hover:bg-white/10 transition-colors active:bg-surface-variant flex items-center justify-between group"
               href="/products"
               onClick={() => setIsMenuOpen(false)}
             >
               Products
-              <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+              <span className="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
             </Link>
             <Link
-              className="font-body-md text-lg font-medium text-on-surface p-4 rounded-2xl hover:bg-surface-container-high transition-colors active:bg-surface-variant flex items-center justify-between group"
+              className="font-body-md text-lg font-medium text-gray-900 dark:text-gray-100 p-4 rounded-2xl hover:bg-surface-container-high dark:hover:bg-white/10 transition-colors active:bg-surface-variant flex items-center justify-between group"
               href="/about"
               onClick={() => setIsMenuOpen(false)}
             >
               About
-              <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+              <span className="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
             </Link>
             <Link
-              className="font-body-md text-lg font-medium text-on-surface p-4 rounded-2xl hover:bg-surface-container-high transition-colors active:bg-surface-variant flex items-center justify-between group"
+              className="font-body-md text-lg font-medium text-gray-900 dark:text-gray-100 p-4 rounded-2xl hover:bg-surface-container-high dark:hover:bg-white/10 transition-colors active:bg-surface-variant flex items-center justify-between group"
               href="/export"
               onClick={() => setIsMenuOpen(false)}
             >
               Export
-              <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+              <span className="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
             </Link>
             <Link
-              className="font-body-md text-lg font-medium text-on-surface p-4 rounded-2xl hover:bg-surface-container-high transition-colors active:bg-surface-variant flex items-center justify-between group"
+              className="font-body-md text-lg font-medium text-gray-900 dark:text-gray-100 p-4 rounded-2xl hover:bg-surface-container-high dark:hover:bg-white/10 transition-colors active:bg-surface-variant flex items-center justify-between group"
               href="/contact"
               onClick={() => setIsMenuOpen(false)}
             >
               Contact
-              <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+              <span className="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
             </Link>
             <button className="mt-4 bg-primary text-on-primary w-full py-5 rounded-2xl font-body-md text-lg font-medium hover:bg-secondary active:scale-[0.98] transition-all shadow-md">
               Get Quote
