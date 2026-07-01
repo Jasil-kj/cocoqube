@@ -1,12 +1,27 @@
+import Image from "next/image";
+
 export default function ContactPage() {
   return (
     <main className="pt-20">
       {/* Hero Section: Global Ambition */}
       <section className="relative min-h-[614px] flex items-center overflow-hidden px-margin-mobile md:px-margin-desktop py-24">
-        <div className="max-w-4xl z-10">
-          <span className="font-label-caps text-secondary uppercase mb-4 block">Sustainable Footprint</span>
-          <h1 className="font-headline-lg text-headline-lg text-primary mb-6">Our Global Presence</h1>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/export_banner.png"
+            alt="Global Export Network"
+            fill
+            priority
+            className="object-cover"
+          />
+          {/* Dark Overlay for Text Readability */}
+          <div className="absolute inset-0 bg-black/50" />
+        </div>
+
+        <div className="max-w-4xl z-10 relative">
+          <span className="font-label-caps text-secondary-container uppercase mb-4 block">Sustainable Footprint</span>
+          <h1 className="font-headline-lg text-headline-lg text-white mb-6">Our Global Presence</h1>
+          <p className="font-body-lg text-body-lg text-white/90 max-w-2xl leading-relaxed">
             Connecting premium coir craftsmanship from the heart of Asia to luxury sustainable projects worldwide. Discover our international export network and certified supply chain.
           </p>
         </div>
@@ -18,7 +33,7 @@ export default function ContactPage() {
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-gutter">
             <div className="max-w-xl">
               <h2 className="font-headline-md text-headline-md text-primary mb-4">Export Destinations</h2>
-              <p className="text-on-surface-variant">We currently serve over 32 countries with sustainable flooring and agricultural coir solutions.</p>
+              <p className="text-on-surface-variant">We proudly focus on serving major markets across the UK and Europe with sustainable, premium coir solutions.</p>
             </div>
             <div className="flex gap-4">
               <div className="flex items-center gap-2 px-4 py-2 bg-surface rounded-full border border-outline-variant shadow-sm">
@@ -33,19 +48,19 @@ export default function ContactPage() {
               className="absolute inset-0 grayscale opacity-80 transition-all duration-700 group-hover:grayscale-0 bg-cover bg-center"
               style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9eGq_CmNXlLgD_k0paUXX0xXZx8ajueUPR9miJXwX7apI9Ll5-ZCX90HLiE9AgQwdm44_HlS99-CFVDdQVadKmr_HSrODb5Q7M8S9c7QPWAJhk2DupP5pQVntjiQDf5cVkdTfxT7QCHTFbqr3YPstKGHFf5HiG3sU4l92_pW12Ajb4uAiYl6o5gdtIMJInP3_z9nPx96G05dw32rd44cxMyaFVtaZz84ihCDPiahyDQ9EFs4LqSxJysNBwDqyUvN2vQuHuPMM-vQn')" }}
             ></div>
-            <div className="absolute top-[25%] left-[20%] transition-transform duration-300 hover:scale-150 cursor-pointer" title="New York, USA">
-              <span className="material-symbols-outlined text-secondary text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span>
-            </div>
             <div className="absolute top-[30%] left-[48%] transition-transform duration-300 hover:scale-150 cursor-pointer" title="London, UK">
               <span className="material-symbols-outlined text-secondary text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span>
             </div>
-            <div className="absolute top-[40%] left-[75%] transition-transform duration-300 hover:scale-150 cursor-pointer" title="Tokyo, Japan">
+            <div className="absolute top-[33%] left-[48%] transition-transform duration-300 hover:scale-150 cursor-pointer" title="Paris, France">
               <span className="material-symbols-outlined text-secondary text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span>
             </div>
-            <div className="absolute top-[70%] left-[85%] transition-transform duration-300 hover:scale-150 cursor-pointer" title="Sydney, Australia">
+            <div className="absolute top-[32%] left-[50%] transition-transform duration-300 hover:scale-150 cursor-pointer" title="Berlin, Germany">
               <span className="material-symbols-outlined text-secondary text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span>
             </div>
-            <div className="absolute top-[35%] left-[55%] transition-transform duration-300 hover:scale-150 cursor-pointer" title="Dubai, UAE">
+            <div className="absolute top-[37%] left-[51%] transition-transform duration-300 hover:scale-150 cursor-pointer" title="Rome, Italy">
+              <span className="material-symbols-outlined text-secondary text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span>
+            </div>
+            <div className="absolute top-[36%] left-[47%] transition-transform duration-300 hover:scale-150 cursor-pointer" title="Madrid, Spain">
               <span className="material-symbols-outlined text-secondary text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span>
             </div>
             

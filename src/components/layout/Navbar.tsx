@@ -41,10 +41,13 @@ export default function Navbar() {
           </Link>
         </div>
         
-        {/* Desktop Button */}
-        <button className="hidden md:block bg-primary text-on-primary px-6 py-2.5 rounded-full font-body-md text-sm font-medium hover:bg-secondary hover:shadow-lg transition-all duration-300 scale-100 active:scale-95">
+        {/* CTA Button */}
+        <Link 
+          href="/contact"
+          className="hidden md:flex bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3.5 rounded-full font-medium transition-all items-center gap-2 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+        >
           Get Quote
-        </button>
+        </Link>
 
         {/* Mobile Hamburger */}
         <button 
@@ -102,9 +105,13 @@ export default function Navbar() {
               Contact
               <span className="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
             </Link>
-            <button className="mt-4 bg-primary text-on-primary w-full py-5 rounded-2xl font-body-md text-lg font-medium hover:bg-secondary active:scale-[0.98] transition-all shadow-md">
+            <Link 
+              href="/contact"
+              onClick={() => setIsMenuOpen(false)}
+              className="mt-4 bg-primary text-on-primary w-full py-5 rounded-2xl font-body-md text-lg font-medium hover:bg-secondary active:scale-[0.98] transition-all shadow-md text-center inline-block"
+            >
               Get Quote
-            </button>
+            </Link>
           </div>
         </>
       )}
