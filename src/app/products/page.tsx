@@ -1,223 +1,404 @@
-export default function ProductsPage() {
+"use client";
+
+import { useState, useMemo, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+import PRODUCTS from '@/data/products.json';
+
+// --- Filter Categories (Exact from Prompt) ---
+const FILTER_CATEGORIES = {
+  material: [
+    "Coco Chips", "Coco Coir", "Coco Fiber", "Coco Peat", "Coco Pith (100%)", 
+    "Coconut Coir", "Coconut Fiber", "Coir", "Coir Fiber", "Coir Fiber Yarn", "HDPE", "Jute"
+  ],
+  shape: [
+    "Block", "Brick", "Conical", "Half Liner", "N/A", "Oval", "Pole", 
+    "Rectangular", "Roll", "Rope", "Round", "Round Disc", "Round/Rectangular", "Slab"
+  ],
+  usage: [
+    "Balcony", "Cleaning", "Commercial Growing", "Container Growing", "Decoration", 
+    "Decoration / Garden", "Erosion Control", "Landscaping", "Floor Mounted", "Garden", 
+    "Gardening", "General Purpose", "Home / Terrace Gardening", "Horticulture", 
+    "Hydroponics", "Hydroponics, Container Gardens", "Nursery / Commercial"
+  ]
+};
+
+function ProductsClient() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // State for Mobile Drawer
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+
+  // State for Filters
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
+  const [selectedMaterials, setSelectedMaterials] = useState<string[]>(searchParams.get("material")?.split(',').filter(Boolean) || []);
+  const [selectedShapes, setSelectedShapes] = useState<string[]>(searchParams.get("shape")?.split(',').filter(Boolean) || []);
+  const [selectedUsages, setSelectedUsages] = useState<string[]>(searchParams.get("usage")?.split(',').filter(Boolean) || []);
+  const [sortOption, setSortOption] = useState(searchParams.get("sort") || "Default");
+
+  // Accordion State
+  const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({
+    material: true,
+    shape: true,
+    usage: true
+  });
+
+  const toggleSection = (section: string) => {
+    setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+
+  // Sync to URL
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (searchQuery) params.set("q", searchQuery);
+    if (selectedMaterials.length) params.set("material", selectedMaterials.join(','));
+    if (selectedShapes.length) params.set("shape", selectedShapes.join(','));
+    if (selectedUsages.length) params.set("usage", selectedUsages.join(','));
+    if (sortOption !== "Default") params.set("sort", sortOption);
+
+    const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
+    router.push(newUrl, { scroll: false });
+  }, [searchQuery, selectedMaterials, selectedShapes, selectedUsages, sortOption, router]);
+
+  // Filtering Logic
+  const filteredProducts = useMemo(() => {
+    let result = PRODUCTS;
+
+    // Search
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(p => {
+        const mat = Array.isArray(p.material) ? p.material.join(' ') : (p.material || '');
+        return p.name.toLowerCase().includes(q) || 
+               p.id.toLowerCase().includes(q) ||
+               mat.toLowerCase().includes(q);
+      });
+    }
+
+    // Material Filter
+    if (selectedMaterials.length > 0) {
+      result = result.filter(p => {
+        const mats = Array.isArray(p.material) ? p.material : [p.material];
+        return mats.some(m => selectedMaterials.includes(m));
+      });
+    }
+
+    // Shape Filter
+    if (selectedShapes.length > 0) {
+      result = result.filter(p => {
+        const shapes = Array.isArray(p.shape) ? p.shape : [p.shape];
+        return shapes.some(s => selectedShapes.includes(s));
+      });
+    }
+
+    // Usage Filter
+    if (selectedUsages.length > 0) {
+      result = result.filter(p => {
+        const usages = Array.isArray(p.usage) ? p.usage : [p.usage];
+        return usages.some(u => selectedUsages.includes(u));
+      });
+    }
+
+    // Sorting
+    switch(sortOption) {
+      case "Name A-Z":
+        result.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "Name Z-A":
+        result.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case "Product Code":
+        result.sort((a, b) => a.id.localeCompare(b.id));
+        break;
+      default:
+        break;
+    }
+
+    return result;
+  }, [searchQuery, selectedMaterials, selectedShapes, selectedUsages, sortOption]);
+
+  // Count helper
+  const getCount = (category: string, value: string) => {
+    return PRODUCTS.filter(p => {
+      const vals = Array.isArray(p[category as keyof typeof p]) ? p[category as keyof typeof p] : [p[category as keyof typeof p]];
+      // @ts-ignore
+      return vals.includes(value);
+    }).length;
+  };
+
+  const handleCheckbox = (value: string, selectedState: string[], setSelectedState: React.Dispatch<React.SetStateAction<string[]>>) => {
+    if (selectedState.includes(value)) {
+      setSelectedState(selectedState.filter(item => item !== value));
+    } else {
+      setSelectedState([...selectedState, value]);
+    }
+  };
+
+  const clearAllFilters = () => {
+    setSearchQuery("");
+    setSelectedMaterials([]);
+    setSelectedShapes([]);
+    setSelectedUsages([]);
+    setSortOption("Default");
+  };
+
+  // Filter Sidebar UI
+  const FilterContent = () => (
+    <div className="flex flex-col h-full bg-white md:bg-transparent rounded-2xl md:rounded-none">
+      <div className="flex-1 overflow-y-auto px-6 py-8 md:px-0 md:py-0 space-y-8">
+        
+        {[
+          { key: 'material', title: 'Material', state: selectedMaterials, setter: setSelectedMaterials, options: FILTER_CATEGORIES.material },
+          { key: 'shape', title: 'Shape', state: selectedShapes, setter: setSelectedShapes, options: FILTER_CATEGORIES.shape },
+          { key: 'usage', title: 'Usage / Application', state: selectedUsages, setter: setSelectedUsages, options: FILTER_CATEGORIES.usage },
+        ].map(section => (
+          <div key={section.key} className="border-b border-[#E8E3DD] pb-6">
+            <button 
+              onClick={() => toggleSection(section.key)} 
+              className="flex items-center justify-between w-full font-medium text-gray-900 tracking-wide text-sm mb-2"
+            >
+              {section.title}
+              <motion.span 
+                animate={{ rotate: openSections[section.key] ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-gray-400"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6"/></svg>
+              </motion.span>
+            </button>
+            
+            <AnimatePresence>
+              {openSections[section.key] && (
+                <motion.div 
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <div className="space-y-3 pt-3">
+                    {section.options.map(opt => {
+                      const count = getCount(section.key, opt);
+                      if (count === 0) return null; // Hide empty filters automatically
+                      return (
+                        <label key={opt} className="flex items-center justify-between cursor-pointer group">
+                          <div className="flex items-center space-x-3">
+                            <div className="relative flex items-center justify-center w-5 h-5">
+                              <input 
+                                type="checkbox" 
+                                checked={section.state.includes(opt)}
+                                onChange={() => handleCheckbox(opt, section.state, section.setter)}
+                                className="appearance-none w-5 h-5 rounded border border-[#E8E3DD] checked:bg-[#6B4A34] checked:border-[#6B4A34] transition-colors cursor-pointer"
+                              />
+                              <AnimatePresence>
+                                {section.state.includes(opt) && (
+                                  <motion.svg 
+                                    initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
+                                    className="absolute w-3 h-3 text-white pointer-events-none" 
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+                                  >
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                  </motion.svg>
+                                )}
+                              </AnimatePresence>
+                            </div>
+                            <span className="text-sm text-gray-600 group-hover:text-[#6B4A34] transition-colors">{opt}</span>
+                          </div>
+                          <span className="text-xs font-medium text-gray-400 bg-gray-50 px-2 py-0.5 rounded-md">{count}</span>
+                        </label>
+                      )
+                    })}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        ))}
+
+      </div>
+      
+      {/* Mobile Action Buttons */}
+      <div className="p-6 md:p-0 md:pt-6 bg-white md:bg-transparent flex items-center gap-3 md:sticky bottom-0">
+        <button onClick={clearAllFilters} className="flex-1 py-3 px-4 rounded-xl border border-[#E8E3DD] text-gray-600 font-medium text-sm hover:bg-gray-50 transition-colors">
+          Clear All
+        </button>
+        <button onClick={() => setIsMobileFiltersOpen(false)} className="flex-1 py-3 px-4 rounded-xl bg-[#6B4A34] text-white font-medium text-sm hover:bg-[#5a4035] transition-colors md:hidden">
+          Apply Filters
+        </button>
+      </div>
+    </div>
+  );
+
   return (
-    <main className="pt-32 pb-24 min-h-screen">
-      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+    <main className="pt-32 pb-24 min-h-screen bg-[#F8F6F2]">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Header Section */}
-        <header className="mb-16">
-          <h1 className="font-display-lg text-display-lg text-primary mb-4">Export Catalogue</h1>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+        <header className="mb-10 text-center md:text-left">
+          <h1 className="text-4xl md:text-5xl font-serif text-[#3A2D27] mb-4">Export Catalogue</h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto md:mx-0">
             Discover our collection of premium, sustainable coir solutions. Engineered for durability, crafted for luxury, and exported globally with a commitment to zero-waste.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-gutter items-start">
-          {/* Filters Sidebar */}
-          <aside className="lg:col-span-1 sticky top-28 h-fit space-y-8 p-8 rounded-3xl bg-surface-container-low backdrop-blur-xl atmospheric-shadow">
-            {/* Search */}
-            <div className="space-y-3">
-              <label className="font-label-caps text-label-caps text-on-surface-variant uppercase">Search Collection</label>
-              <div className="relative">
-                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
-                <input
-                  className="w-full pl-12 pr-4 py-3 bg-white border border-outline-variant rounded-xl focus:ring-1 focus:ring-primary focus:border-primary transition-all outline-none text-body-md"
-                  placeholder="Product name or code..."
-                  type="text"
-                />
-              </div>
-            </div>
+        {/* Search & Mobile Filter Toggle */}
+        <div className="flex flex-col md:flex-row gap-4 mb-10">
+          <div className="relative flex-1 group">
+            <span className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#6B4A34] transition-colors">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </span>
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-14 pr-4 py-4 bg-white border border-[#E8E3DD] rounded-2xl focus:ring-2 focus:ring-[#6B4A34] outline-none transition-all shadow-sm hover:shadow-md text-gray-800"
+              placeholder="Search products by name, SKU, material..."
+              type="text"
+            />
+          </div>
+          <button 
+            onClick={() => setIsMobileFiltersOpen(true)}
+            className="md:hidden py-4 px-6 bg-white border border-[#E8E3DD] rounded-2xl shadow-sm text-[#6B4A34] font-medium flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+            Filters
+          </button>
+        </div>
 
-            {/* Category Filter */}
-            <div className="space-y-4">
-              <h4 className="font-label-caps text-label-caps text-primary uppercase">Categories</h4>
-              <div className="flex flex-wrap gap-2">
-                <button className="px-4 py-2 rounded-full border border-outline-variant text-body-md hover:bg-primary hover:text-on-primary transition-colors">Residential</button>
-                <button className="px-4 py-2 rounded-full border border-outline-variant text-body-md bg-primary text-on-primary">Industrial</button>
-                <button className="px-4 py-2 rounded-full border border-outline-variant text-body-md hover:bg-primary hover:text-on-primary transition-colors">Landscape</button>
-                <button className="px-4 py-2 rounded-full border border-outline-variant text-body-md hover:bg-primary hover:text-on-primary transition-colors">Acoustics</button>
-              </div>
-            </div>
-
-            {/* Material Filter */}
-            <div className="space-y-4">
-              <h4 className="font-label-caps text-label-caps text-primary uppercase">Material Type</h4>
-              <div className="space-y-3">
-                <label className="flex items-center space-x-3 cursor-pointer group">
-                  <input className="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary transition-all" type="checkbox" />
-                  <span className="text-body-md text-on-surface-variant group-hover:text-primary transition-colors">Hand-Woven Natural Coir</span>
-                </label>
-                <label className="flex items-center space-x-3 cursor-pointer group">
-                  <input className="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary transition-all" type="checkbox" />
-                  <span className="text-body-md text-on-surface-variant group-hover:text-primary transition-colors">PVC Backed Coir</span>
-                </label>
-                <label className="flex items-center space-x-3 cursor-pointer group">
-                  <input className="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary transition-all" type="checkbox" />
-                  <span className="text-body-md text-on-surface-variant group-hover:text-primary transition-colors">Recycled Rubber Coir</span>
-                </label>
-              </div>
-            </div>
-
-            {/* Market Filter */}
-            <div className="space-y-4">
-              <h4 className="font-label-caps text-label-caps text-primary uppercase">Export Region</h4>
-              <select className="w-full py-3 px-4 bg-white border border-outline-variant rounded-xl focus:ring-1 focus:ring-primary outline-none appearance-none cursor-pointer text-body-md">
-                <option>European Union</option>
-                <option>North America</option>
-                <option>Asia Pacific</option>
-                <option>Middle East</option>
-              </select>
-            </div>
-            
-            <button className="w-full py-4 bg-secondary text-on-secondary rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:opacity-90 transition-opacity">
-              Clear All Filters
-            </button>
+        <div className="flex flex-col lg:flex-row gap-10 items-start">
+          
+          {/* Desktop Sidebar */}
+          <aside className="hidden lg:block w-[320px] flex-shrink-0 sticky top-32 bg-white rounded-[18px] p-8 shadow-sm">
+            <FilterContent />
           </aside>
 
+          {/* Mobile Drawer */}
+          <AnimatePresence>
+            {isMobileFiltersOpen && (
+              <>
+                <motion.div 
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black/50 z-50 md:hidden" 
+                  onClick={() => setIsMobileFiltersOpen(false)} 
+                />
+                <motion.div 
+                  initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
+                  transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                  className="fixed top-0 right-0 w-[90%] max-w-md h-full bg-white shadow-2xl z-50 flex flex-col md:hidden"
+                >
+                  <div className="flex items-center justify-between p-6 border-b border-[#E8E3DD]">
+                    <h2 className="text-xl font-serif text-[#3A2D27]">Filters</h2>
+                    <button onClick={() => setIsMobileFiltersOpen(false)} className="text-gray-400 hover:text-black transition-colors p-2 rounded-full hover:bg-gray-100">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                  </div>
+                  <div className="flex-1 overflow-hidden">
+                    <FilterContent />
+                  </div>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+
           {/* Product Grid Area */}
-          <section className="lg:col-span-3">
+          <section className="flex-1 w-full min-w-0">
             {/* Top Controls */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
-              <p className="font-body-md text-on-surface-variant">Showing <span className="font-bold text-primary">1 - 8</span> of 48 products</p>
-              <div className="flex items-center space-x-4">
-                <span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Sort By</span>
-                <div className="relative inline-block">
-                  <select className="pl-4 pr-10 py-2 bg-transparent border-b border-primary text-primary font-semibold outline-none appearance-none cursor-pointer">
-                    <option>Latest Arrivals</option>
-                    <option>Most Popular</option>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+              <p className="text-gray-600">
+                Showing <span className="font-semibold text-[#3A2D27]">{filteredProducts.length}</span> products
+              </p>
+              <div className="flex items-center space-x-3">
+                <span className="text-sm font-medium text-gray-500 uppercase tracking-wider">Sort by</span>
+                <div className="relative group">
+                  <select 
+                    value={sortOption}
+                    onChange={(e) => setSortOption(e.target.value)}
+                    className="pl-4 pr-10 py-2.5 bg-white border border-[#E8E3DD] rounded-xl text-[#3A2D27] font-medium outline-none focus:ring-2 focus:ring-[#6B4A34] appearance-none cursor-pointer shadow-sm hover:border-[#6B4A34] transition-colors"
+                  >
+                    <option>Default</option>
+                    <option>Newest</option>
                     <option>Name A-Z</option>
-                    <option>Price (High-Low)</option>
+                    <option>Name Z-A</option>
+                    <option>Product Code</option>
+                    <option>Featured</option>
                   </select>
-                  <span className="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none group-hover:text-[#6B4A34] transition-colors">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6"/></svg>
+                  </span>
                 </div>
               </div>
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-              {[
-                {
-                  id: "BV-2024-HM",
-                  name: "Heritage Hand-Woven",
-                  desc: "Authentic hand-tufted natural fiber matting designed for high-traffic luxury residential projects.",
-                  img: "https://lh3.googleusercontent.com/aida-public/AB6AXuA392AR7uZOoTvdDx--FAOUNoCfH7RnEXHTZHdaWQCAnNORT9cyFKFOBOdVMQuHb02uwpEgzpy-l3nddbbGRS6Qbt8pu_iTBsQF6yDvxkQPZ5ctSUGb4p-Pj4paCBx96VZeaJeKrotSn1BRqfn8Wap5M_sX3QZbpsOs729UNw5j_7JjyxzUnOVlBLG_hLSmgI8ALCWehtKStO26X3MyDHprImu30ZehR0Lqbl0tAmQaJt3AJLFVWC7p81rJ-Y0D5NWuGpabEhG2O9IC",
-                  badge1: "Eco-Friendly",
-                  badge2: "Best Seller",
-                  spec: "60cm x 90cm x 15mm"
-                },
-                {
-                  id: "BV-8800-PV",
-                  name: "Steel-Core PVC Series",
-                  desc: "Maximum durability backing with reinforced edge control for commercial lobby spaces.",
-                  img: "https://lh3.googleusercontent.com/aida-public/AB6AXuClHMSF2s444aR0kF397Cn4JUC2dESxOS3Ct5Pr6D2a6lEgAfoJyqQeevBy3_xDmtfyivnSLNYVjECqQJ1DcodNxRjJ7rQwtnjTbMdmqCSDqyTXb4xpMbmVL71Vf31sC6iAe2cUjtC40x5h3Pk8abNuDrGJg54BSr7-3dNV3gxQahsrU54ryCHz22ZpfGSCeoLsoE1oAh-7unMef4nUkhYo2JmhPsNWsQ0L0fpE7MHwSanE1rOPuWsgSZ09J3KUHJvoEcHb1NXahIlR",
-                  badge1: "Industrial",
-                  badge2: null,
-                  spec: "Roll Form: 2m x 15m"
-                },
-                {
-                  id: "BV-920-LA",
-                  name: "Verdant Landscape Geo",
-                  desc: "Biodegradable erosion control and aesthetic ground covering for sustainable landscaping.",
-                  img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDPmFnLkRxhiyzgjKSMceS675-0qbnGsvGyEXHDKIUZyf9BE4hcxtvOwP9wpHSl_rbOONlsESn620jKByWvs-StRljA_AfYiYgBu1sSBYcQKNYxrfrTAsrk-_vb5X48haZUkfK2M6oF3YMxUBgkCX8giYDgrNcke63nTJOmGgE4YoLMlyvOFVry6TRThLHEEdNpkVFVlsviRg5amEGNNu4WuqUNO4fUVzNid0a19IPUDf_nnN4hnY3uIzSOohdNM0P3m8WgNj2VZI_5",
-                  badge1: null,
-                  badge2: null,
-                  spec: "Custom Dimensions"
-                },
-                {
-                  id: "BV-AC-105",
-                  name: "Acoustical Fiber Slab",
-                  desc: "Sustainable sound absorption panels for high-end workspace and studio interiors.",
-                  img: "https://lh3.googleusercontent.com/aida-public/AB6AXuD-XK_U6GACbgAp6bsN_bSytSrTmPUarpsE_-JmSrO_P154vBAbhn8f-m_ab6KNd8_G7WLaaTcN0TEwdVpdQR45ovCukSmmwjANrdVQN24-T_2kWejSJt6AiM7wv4rCtASqiJgGumpucEN8cZQfo7JVwGLvolRRATVOC16q4_q2PEnOxqGBfbHjl-COQLwi3hIGYyHOwbqCV7KRjsf64DCPYqKD8sx50JSkOz2kkpA7t6462wu63FrUrcEFcmCtuhZJXTQeTZ7b7HLd",
-                  badge1: "New Release",
-                  badge2: null,
-                  spec: "120cm x 120cm"
-                },
-                {
-                  id: "BV-2024-HM-2",
-                  name: "Heritage Hand-Woven",
-                  desc: "Authentic hand-tufted natural fiber matting designed for high-traffic luxury residential projects.",
-                  img: "https://lh3.googleusercontent.com/aida-public/AB6AXuA392AR7uZOoTvdDx--FAOUNoCfH7RnEXHTZHdaWQCAnNORT9cyFKFOBOdVMQuHb02uwpEgzpy-l3nddbbGRS6Qbt8pu_iTBsQF6yDvxkQPZ5ctSUGb4p-Pj4paCBx96VZeaJeKrotSn1BRqfn8Wap5M_sX3QZbpsOs729UNw5j_7JjyxzUnOVlBLG_hLSmgI8ALCWehtKStO26X3MyDHprImu30ZehR0Lqbl0tAmQaJt3AJLFVWC7p81rJ-Y0D5NWuGpabEhG2O9IC",
-                  badge1: "Eco-Friendly",
-                  badge2: "Best Seller",
-                  spec: "60cm x 90cm x 15mm"
-                },
-                {
-                  id: "BV-8800-PV-2",
-                  name: "Steel-Core PVC Series",
-                  desc: "Maximum durability backing with reinforced edge control for commercial lobby spaces.",
-                  img: "https://lh3.googleusercontent.com/aida-public/AB6AXuClHMSF2s444aR0kF397Cn4JUC2dESxOS3Ct5Pr6D2a6lEgAfoJyqQeevBy3_xDmtfyivnSLNYVjECqQJ1DcodNxRjJ7rQwtnjTbMdmqCSDqyTXb4xpMbmVL71Vf31sC6iAe2cUjtC40x5h3Pk8abNuDrGJg54BSr7-3dNV3gxQahsrU54ryCHz22ZpfGSCeoLsoE1oAh-7unMef4nUkhYo2JmhPsNWsQ0L0fpE7MHwSanE1rOPuWsgSZ09J3KUHJvoEcHb1NXahIlR",
-                  badge1: "Industrial",
-                  badge2: null,
-                  spec: "Roll Form: 2m x 15m"
-                },
-                {
-                  id: "BV-920-LA-2",
-                  name: "Verdant Landscape Geo",
-                  desc: "Biodegradable erosion control and aesthetic ground covering for sustainable landscaping.",
-                  img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDPmFnLkRxhiyzgjKSMceS675-0qbnGsvGyEXHDKIUZyf9BE4hcxtvOwP9wpHSl_rbOONlsESn620jKByWvs-StRljA_AfYiYgBu1sSBYcQKNYxrfrTAsrk-_vb5X48haZUkfK2M6oF3YMxUBgkCX8giYDgrNcke63nTJOmGgE4YoLMlyvOFVry6TRThLHEEdNpkVFVlsviRg5amEGNNu4WuqUNO4fUVzNid0a19IPUDf_nnN4hnY3uIzSOohdNM0P3m8WgNj2VZI_5",
-                  badge1: null,
-                  badge2: null,
-                  spec: "Custom Dimensions"
-                },
-                {
-                  id: "BV-AC-105-2",
-                  name: "Acoustical Fiber Slab",
-                  desc: "Sustainable sound absorption panels for high-end workspace and studio interiors.",
-                  img: "https://lh3.googleusercontent.com/aida-public/AB6AXuD-XK_U6GACbgAp6bsN_bSytSrTmPUarpsE_-JmSrO_P154vBAbhn8f-m_ab6KNd8_G7WLaaTcN0TEwdVpdQR45ovCukSmmwjANrdVQN24-T_2kWejSJt6AiM7wv4rCtASqiJgGumpucEN8cZQfo7JVwGLvolRRATVOC16q4_q2PEnOxqGBfbHjl-COQLwi3hIGYyHOwbqCV7KRjsf64DCPYqKD8sx50JSkOz2kkpA7t6462wu63FrUrcEFcmCtuhZJXTQeTZ7b7HLd",
-                  badge1: "New Release",
-                  badge2: null,
-                  spec: "120cm x 120cm"
-                }
-              ].map((prod, idx) => (
-                <div key={idx} className="group cursor-pointer">
-                  <div className="relative aspect-[4/5] rounded-[32px] overflow-hidden bg-surface-container-high mb-6 atmospheric-shadow transition-transform duration-500 hover:-translate-y-2">
-                    <img className="w-full h-full object-cover" alt={prod.name} src={prod.img} />
-                    <div className="absolute top-6 left-6 flex space-x-2">
-                      {prod.badge1 && <span className={`px-3 py-1 rounded-full text-label-caps font-label-caps uppercase text-[10px] ${prod.badge1 === 'New Release' ? 'bg-tertiary text-on-tertiary' : 'bg-secondary text-on-secondary'}`}>{prod.badge1}</span>}
-                      {prod.badge2 && <span className="px-3 py-1 bg-primary text-on-primary rounded-full text-label-caps font-label-caps uppercase text-[10px]">{prod.badge2}</span>}
-                    </div>
-                  </div>
-                  <div className="space-y-2 px-2">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="font-label-caps text-label-caps text-outline uppercase tracking-tighter">REF: {prod.id}</p>
-                        <h3 className="font-headline-md text-headline-md text-primary mt-1">{prod.name}</h3>
+            {filteredProducts.length > 0 ? (
+              <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <AnimatePresence>
+                  {filteredProducts.map((prod) => (
+                    <motion.div 
+                      layout
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.3 }}
+                      key={prod.id} 
+                      className="group flex flex-col bg-white border border-[#E8E3DD] rounded-[18px] overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                    >
+                      <div className="relative aspect-square overflow-hidden bg-gray-50 flex items-center justify-center cursor-pointer" onClick={() => router.push(`/products/${prod.id}`)}>
+                        <img className="w-full h-full object-cover" alt={prod.name} src={prod.image || prod.img} />
                       </div>
-                    </div>
-                    <p className="text-body-md text-on-surface-variant line-clamp-2">{prod.desc}</p>
-                    <div className="flex items-center justify-between pt-4 border-t border-outline-variant">
-                      <span className="text-body-md font-semibold text-primary">{prod.spec}</span>
-                      <button className="flex items-center space-x-2 text-primary font-bold hover:text-secondary transition-colors group/btn">
-                        <span className="font-label-caps text-label-caps uppercase">Add to RFQ</span>
-                        <span className="material-symbols-outlined transition-transform group-hover/btn:translate-x-1">add_circle</span>
-                      </button>
-                    </div>
-                  </div>
+                      <div className="flex flex-col flex-1 p-6 space-y-4">
+                        <div className="cursor-pointer" onClick={() => router.push(`/products/${prod.id}`)}>
+                          <p className="text-xs font-semibold text-gray-400 mb-1 tracking-wider">{prod.id}</p>
+                          <h3 className="text-lg text-[#3A2D27] font-serif font-medium leading-tight group-hover:text-[#6B4A34] transition-colors">{prod.name}</h3>
+                        </div>
+                        <p className="text-sm text-gray-500 flex-1 leading-relaxed line-clamp-2">
+                          {Array.isArray(prod.material) ? prod.material[0] : prod.material} 
+                          {prod.shape && prod.shape !== 'N/A' && ` · ${Array.isArray(prod.shape) ? prod.shape[0] : prod.shape}`}
+                        </p>
+                        
+                        <div className="pt-2">
+                          <button onClick={() => router.push(`/products/${prod.id}`)} className="w-full py-3 px-4 bg-[#F8F6F2] text-[#6B4A34] rounded-xl text-sm font-semibold hover:bg-[#6B4A34] hover:text-white transition-colors duration-300">
+                            View Details
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
+            ) : (
+              /* Empty State */
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                className="flex flex-col items-center justify-center py-32 px-4 text-center bg-white rounded-[18px] border border-[#E8E3DD] shadow-sm"
+              >
+                <div className="w-24 h-24 mb-6 rounded-full bg-[#F8F6F2] flex items-center justify-center">
+                  <svg className="w-10 h-10 text-[#6B4A34]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                  </svg>
                 </div>
-              ))}
-            </div>
-
-            {/* Pagination */}
-            <div className="mt-20 flex items-center justify-center space-x-4">
-              <button className="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant hover:border-primary transition-colors">
-                <span className="material-symbols-outlined">chevron_left</span>
-              </button>
-              <button className="w-12 h-12 flex items-center justify-center rounded-full bg-primary text-on-primary font-bold">1</button>
-              <button className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">2</button>
-              <button className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">3</button>
-              <span className="text-outline">...</span>
-              <button className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">8</button>
-              <button className="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant hover:border-primary transition-colors">
-                <span className="material-symbols-outlined">chevron_right</span>
-              </button>
-            </div>
+                <h3 className="text-2xl font-serif text-[#3A2D27] mb-3">No products found</h3>
+                <p className="text-gray-500 mb-8 max-w-md">Try changing your filters or searching with different keywords.</p>
+                <button 
+                  onClick={clearAllFilters}
+                  className="py-3 px-8 bg-white border border-[#E8E3DD] text-[#3A2D27] rounded-xl font-medium hover:bg-gray-50 transition-colors shadow-sm"
+                >
+                  Clear Filters
+                </button>
+              </motion.div>
+            )}
           </section>
         </div>
       </div>
-      
-      {/* RFQ Floating Action Button */}
-      <button className="fixed bottom-10 right-10 z-40 bg-secondary text-on-secondary px-8 py-5 rounded-full atmospheric-shadow flex items-center space-x-4 hover:scale-105 active:scale-95 transition-all duration-300">
-        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>list_alt</span>
-        <span className="font-label-caps text-label-caps uppercase tracking-widest">Quote Cart (3)</span>
-      </button>
     </main>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#F8F6F2]"><div className="w-10 h-10 border-4 border-[#E8E3DD] border-t-[#6B4A34] rounded-full animate-spin"></div></div>}>
+      <ProductsClient />
+    </Suspense>
   );
 }
