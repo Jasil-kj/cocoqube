@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import PRODUCTS from '@/data/products.json';
 
 // --- Filter Categories (Exact from Prompt) ---
@@ -284,7 +285,7 @@ function ProductsClient() {
                 <motion.div 
                   initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
                   transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                  className="fixed top-0 right-0 w-[90%] max-w-md h-full bg-white shadow-2xl z-50 flex flex-col md:hidden"
+                  className="fixed top-0 right-0 w-[90%] max-w-md h-[100dvh] bg-white shadow-2xl z-50 flex flex-col md:hidden"
                 >
                   <div className="flex items-center justify-between p-6 border-b border-[#E8E3DD]">
                     <h2 className="text-xl font-serif text-[#3A2D27]">Filters</h2>
@@ -344,7 +345,13 @@ function ProductsClient() {
                       className="group flex flex-col bg-white border border-[#E8E3DD] rounded-[18px] overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                     >
                       <div className="relative aspect-square overflow-hidden bg-gray-50 flex items-center justify-center cursor-pointer" onClick={() => router.push(`/products/${prod.id}`)}>
-                        <img className="w-full h-full object-cover" alt={prod.name} src={prod.image || prod.img} />
+                        <Image 
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover" 
+                          alt={prod.name} 
+                          src={prod.image} 
+                        />
                       </div>
                       <div className="flex flex-col flex-1 p-6 space-y-4">
                         <div className="cursor-pointer" onClick={() => router.push(`/products/${prod.id}`)}>
@@ -353,7 +360,7 @@ function ProductsClient() {
                         </div>
                         <p className="text-sm text-gray-500 flex-1 leading-relaxed line-clamp-2">
                           {Array.isArray(prod.material) ? prod.material[0] : prod.material} 
-                          {prod.shape && prod.shape !== 'N/A' && ` · ${Array.isArray(prod.shape) ? prod.shape[0] : prod.shape}`}
+                          {prod.shape && (!Array.isArray(prod.shape) ? prod.shape !== 'N/A' : !prod.shape.includes('N/A')) && ` · ${Array.isArray(prod.shape) ? prod.shape[0] : prod.shape}`}
                         </p>
                         
                         <div className="pt-2">

@@ -14,7 +14,18 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
 
   // Find related products (same material or category, exclude current)
   const relatedProducts = productsData
-    .filter((p) => p.id !== id && (p.material === product.material || p.usage === product.usage))
+    .filter((p) => {
+      if (p.id === id) return false;
+      const pMats = Array.isArray(p.material) ? p.material : [p.material];
+      const pUsages = Array.isArray(p.usage) ? p.usage : [p.usage];
+      const prodMats = Array.isArray(product.material) ? product.material : [product.material];
+      const prodUsages = Array.isArray(product.usage) ? product.usage : [product.usage];
+      
+      const sharesMaterial = pMats.some(m => prodMats.includes(m));
+      const sharesUsage = pUsages.some(u => prodUsages.includes(u));
+      
+      return sharesMaterial || sharesUsage;
+    })
     .slice(0, 4);
 
   return (
@@ -47,6 +58,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
                   src={product.image}
                   alt={product.name}
                   fill
+                  sizes="(max-width: 768px) 20vw, 10vw"
                   className="object-cover"
                 />
               </button>
@@ -57,6 +69,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
                     src={product.image}
                     alt={`${product.name} view ${i+2}`}
                     fill
+                    sizes="(max-width: 768px) 20vw, 10vw"
                     className="object-cover"
                   />
                 </button>
@@ -70,6 +83,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
                 alt={product.name}
                 fill
                 priority
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
               />
             </div>
@@ -94,7 +108,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
                 </div>
                 <div>
                   <p className="text-xs text-on-surface/60 font-medium">Material</p>
-                  <p className="text-sm font-semibold text-on-surface">{product.material}</p>
+                  <p className="text-sm font-semibold text-on-surface">{Array.isArray(product.material) ? product.material.join(', ') : product.material}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -103,7 +117,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
                 </div>
                 <div>
                   <p className="text-xs text-on-surface/60 font-medium">Shape</p>
-                  <p className="text-sm font-semibold text-on-surface">{product.shape}</p>
+                  <p className="text-sm font-semibold text-on-surface">{Array.isArray(product.shape) ? product.shape.join(', ') : product.shape}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -169,6 +183,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
                       src={prod.image}
                       alt={prod.name}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
@@ -185,7 +200,8 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
                       {prod.name}
                     </h3>
                     <p className="text-xs text-on-surface/60 line-clamp-2 mt-auto">
-                      {prod.material} {prod.shape !== 'N/A' && `· ${prod.shape}`}
+                      {Array.isArray(prod.material) ? prod.material[0] : prod.material} 
+                      {(!Array.isArray(prod.shape) ? prod.shape !== 'N/A' : !prod.shape.includes('N/A')) && ` · ${Array.isArray(prod.shape) ? prod.shape[0] : prod.shape}`}
                     </p>
                   </div>
                 </Link>

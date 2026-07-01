@@ -63,39 +63,50 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
-        <div className="md:hidden w-full max-w-5xl mt-2 bg-surface/95 dark:bg-black/95 backdrop-blur-3xl shadow-xl border border-outline-variant/30 rounded-3xl overflow-hidden flex flex-col p-4 gap-2 animate-in fade-in slide-in-from-top-4 duration-300">
-          <Link
-            className="font-body-md text-base font-medium text-on-surface p-4 rounded-xl hover:bg-surface-container-high transition-colors"
-            href="/products"
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden animate-in fade-in"
             onClick={() => setIsMenuOpen(false)}
-          >
-            Products
-          </Link>
-          <Link
-            className="font-body-md text-base font-medium text-on-surface p-4 rounded-xl hover:bg-surface-container-high transition-colors"
-            href="/about"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            About
-          </Link>
-          <Link
-            className="font-body-md text-base font-medium text-on-surface p-4 rounded-xl hover:bg-surface-container-high transition-colors"
-            href="/export"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Export
-          </Link>
-          <Link
-            className="font-body-md text-base font-medium text-on-surface p-4 rounded-xl hover:bg-surface-container-high transition-colors"
-            href="/contact"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Contact
-          </Link>
-          <button className="mt-2 bg-primary text-on-primary w-full py-4 rounded-full font-body-md text-base font-medium hover:bg-secondary transition-colors">
-            Get Quote
-          </button>
-        </div>
+          />
+          <div className="fixed top-24 left-4 right-4 z-50 md:hidden bg-surface dark:bg-[#1a1a1a] shadow-2xl border border-outline-variant/30 rounded-[28px] overflow-hidden flex flex-col p-6 gap-2 animate-in fade-in slide-in-from-top-8 duration-300">
+            <Link
+              className="font-body-md text-lg font-medium text-on-surface p-4 rounded-2xl hover:bg-surface-container-high transition-colors active:bg-surface-variant flex items-center justify-between group"
+              href="/products"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Products
+              <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+            </Link>
+            <Link
+              className="font-body-md text-lg font-medium text-on-surface p-4 rounded-2xl hover:bg-surface-container-high transition-colors active:bg-surface-variant flex items-center justify-between group"
+              href="/about"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About
+              <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+            </Link>
+            <Link
+              className="font-body-md text-lg font-medium text-on-surface p-4 rounded-2xl hover:bg-surface-container-high transition-colors active:bg-surface-variant flex items-center justify-between group"
+              href="/export"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Export
+              <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+            </Link>
+            <Link
+              className="font-body-md text-lg font-medium text-on-surface p-4 rounded-2xl hover:bg-surface-container-high transition-colors active:bg-surface-variant flex items-center justify-between group"
+              href="/contact"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Contact
+              <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+            </Link>
+            <button className="mt-4 bg-primary text-on-primary w-full py-5 rounded-2xl font-body-md text-lg font-medium hover:bg-secondary active:scale-[0.98] transition-all shadow-md">
+              Get Quote
+            </button>
+          </div>
+        </>
       )}
     </div>
   );

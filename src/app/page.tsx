@@ -1,32 +1,24 @@
 import Link from "next/link";
+import HeroSlider from "@/components/HeroSlider";
 
 export default function Home() {
   return (
     <main>
       {/* Hero Section */}
       <section className="relative h-screen w-full flex items-center justify-start overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div
-            className="w-full h-full bg-cover bg-center scale-105"
-            style={{
-              backgroundImage:
-                "url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-FgMnJiinTapvWPx1EhUetJEQ0dOZLN0FyhOvFkk5mB4n7UvE-2UXzJDjfU4fITBkY1oaHUSbLQXmVS6_Z5iirKIzfMXOVO-iVHuLG5Ym1-zw4zRlRxd8jFCTOOtq-NCaw2CsiRweLICNAwtNGxtb7YZk6m50pD6GOTcVmvdm8oCYTNgYMtuoE7dwZfvyAo-GL7iLQyEyuzA4fED-7L-PGFwuZ_6kIlvvhe6SPWfnfs2t1psIKHXJuMMLDJooY5XvMdygjok79aeq')",
-            }}
-          ></div>
-          <div className="absolute inset-0 hero-gradient"></div>
-        </div>
+        <HeroSlider />
         <div className="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max w-full mx-auto">
           <div className="max-w-3xl">
             <span className="font-label-caps text-label-caps text-secondary mb-4 block uppercase tracking-widest">
               Premium Organic Export
             </span>
-            <h1 className="font-display-lg text-headline-lg-mobile md:text-display-lg text-on-surface mb-8">
+            <h1 className="font-display-lg text-4xl sm:text-5xl md:text-display-lg text-on-surface mb-8 leading-tight">
               Sustainable Coir Solutions for Global Markets.
             </h1>
             <div className="flex flex-wrap gap-4">
               <Link
                 className="bg-primary text-on-primary px-8 py-4 rounded-full font-body-md hover:bg-secondary transition-all duration-300"
-                href="#products"
+                href="/products"
               >
                 Explore Products
               </Link>
@@ -62,7 +54,7 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-6">
+          <h2 className="font-headline-lg text-3xl sm:text-4xl md:text-headline-lg text-primary mb-6 leading-snug">
             Pioneering a Greener Future in Horticulture.
           </h2>
           <p className="text-on-surface-variant text-body-lg mb-10">
@@ -102,7 +94,7 @@ export default function Home() {
       <section className="bg-surface-container-low py-32">
         <div className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-20">
-            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-4">
+            <h2 className="font-headline-lg text-3xl sm:text-4xl md:text-headline-lg text-primary mb-4 leading-snug">
               Precision in Every Fiber
             </h2>
             <p className="text-on-surface-variant">
@@ -143,7 +135,7 @@ export default function Home() {
                 desc: "Direct-from-source pricing without compromising on premium export craftsmanship.",
               },
             ].map((item, idx) => (
-              <div key={idx} className="bg-white p-10 rounded-[32px] card-hover">
+              <div key={idx} className="bg-white p-6 sm:p-8 md:p-10 rounded-[32px] card-hover shadow-sm hover:shadow-md transition-shadow">
                 <span className="material-symbols-outlined text-secondary text-4xl mb-6">
                   {item.icon}
                 </span>
@@ -167,7 +159,7 @@ export default function Home() {
             <span className="font-label-caps text-label-caps text-secondary mb-4 block">
               Product Range
             </span>
-            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
+            <h2 className="font-headline-lg text-3xl sm:text-4xl md:text-headline-lg text-primary leading-snug">
               Crafted Substrates for Modern Horticulture
             </h2>
           </div>
