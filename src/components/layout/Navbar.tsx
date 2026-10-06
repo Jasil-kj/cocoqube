@@ -1,120 +1,59 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="fixed top-6 left-0 right-0 w-full z-50 flex flex-col items-center px-4">
-      <nav className="w-full max-w-5xl bg-surface/80 dark:bg-black/70 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-outline-variant/30 rounded-full px-6 md:px-8 py-3 flex justify-between items-center transition-all duration-300 relative z-50">
-        <Link href="/" onClick={() => setIsMenuOpen(false)} className="font-display-lg text-body-lg font-bold text-primary dark:text-primary-fixed-dim tracking-tight hover:opacity-80 transition-opacity">
-          Cocoqube
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#063923f0] backdrop-blur-[16px]">
+      <div className="flex items-center min-h-[5rem] gap-8 px-5 max-w-[76rem] mx-auto">
+        <Link href="/" className="inline-flex items-center gap-3 text-white text-decoration-none">
+          <div className="w-[2.8rem] h-[2.8rem] bg-white rounded-full flex items-center justify-center p-[0.2rem]">
+             <Image src="https://cocoqube-global.febi044.chatgpt.site/assets/cocoqube-logo.png" alt="CocoQube" width={40} height={40} className="object-contain" />
+          </div>
+          <strong className="text-[1.25rem] tracking-[0.12em] uppercase">CocoQube</strong>
         </Link>
         
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8 bg-surface-container-high/50 px-6 py-2 rounded-full border border-outline-variant/20">
-          <Link
-            className="font-body-md text-sm font-medium text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors"
-            href="/products"
-          >
-            Products
+        <nav className="hidden md:flex items-center gap-[1.2rem] ml-auto">
+          <Link href="/" className="text-white/80 font-[600] text-[0.93rem] hover:text-white transition-colors" aria-current="page">Home</Link>
+          <Link href="/products" className="text-white/80 font-[600] text-[0.93rem] hover:text-white transition-colors">Products</Link>
+          <Link href="/industries" className="text-white/80 font-[600] text-[0.93rem] hover:text-white transition-colors">Industries</Link>
+          <Link href="/about" className="text-white/80 font-[600] text-[0.93rem] hover:text-white transition-colors">About</Link>
+          <Link href="/certifications" className="text-white/80 font-[600] text-[0.93rem] hover:text-white transition-colors">Registrations</Link>
+          <Link href="/blogs" className="text-white/80 font-[600] text-[0.93rem] hover:text-white transition-colors">Blogs</Link>
+          <Link href="/contact" className="text-white/80 font-[600] text-[0.93rem] hover:text-white transition-colors">Contact</Link>
+          <Link href="/export-enquiry" className="text-white font-[600] text-[0.93rem] border border-white/30 rounded-full py-[0.55rem] px-4 hover:border-white transition-colors">
+            Export enquiry
           </Link>
-          <Link
-            className="font-body-md text-sm font-medium text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors"
-            href="/about"
-          >
-            About
-          </Link>
-          <Link
-            className="font-body-md text-sm font-medium text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors"
-            href="/export"
-          >
-            Export
-          </Link>
-          <Link
-            className="font-body-md text-sm font-medium text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors"
-            href="/contact"
-          >
-            Contact
-          </Link>
-        </div>
-        
-        {/* CTA Button */}
-        <Link 
-          href="/contact"
-          className="hidden md:flex bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3.5 rounded-full font-medium transition-all items-center gap-2 shadow-sm hover:shadow-md hover:-translate-y-0.5"
-        >
-          Get Quote
-        </Link>
+        </nav>
 
         {/* Mobile Hamburger */}
         <button 
-          className="md:hidden flex items-center justify-center p-2 text-primary focus:outline-none"
+          className="md:hidden ml-auto text-white bg-transparent border border-white/25 rounded-[0.7rem] px-3 py-2 text-sm font-semibold"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-expanded={isMenuOpen}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            {isMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
+          Menu
         </button>
-      </nav>
+      </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Nav */}
       {isMenuOpen && (
-        <>
-          {/* Backdrop */}
-          <div 
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden animate-in fade-in"
-            onClick={() => setIsMenuOpen(false)}
-          />
-          <div className="fixed top-24 left-4 right-4 z-50 md:hidden bg-surface dark:bg-[#1a1a1a] shadow-2xl border border-outline-variant/30 rounded-[28px] overflow-hidden flex flex-col p-6 gap-2 animate-in fade-in slide-in-from-top-8 duration-300">
-            <Link
-              className="font-body-md text-lg font-medium text-gray-900 dark:text-gray-100 p-4 rounded-2xl hover:bg-surface-container-high dark:hover:bg-white/10 transition-colors active:bg-surface-variant flex items-center justify-between group"
-              href="/products"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Products
-              <span className="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
-            </Link>
-            <Link
-              className="font-body-md text-lg font-medium text-gray-900 dark:text-gray-100 p-4 rounded-2xl hover:bg-surface-container-high dark:hover:bg-white/10 transition-colors active:bg-surface-variant flex items-center justify-between group"
-              href="/about"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              About
-              <span className="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
-            </Link>
-            <Link
-              className="font-body-md text-lg font-medium text-gray-900 dark:text-gray-100 p-4 rounded-2xl hover:bg-surface-container-high dark:hover:bg-white/10 transition-colors active:bg-surface-variant flex items-center justify-between group"
-              href="/export"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Export
-              <span className="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
-            </Link>
-            <Link
-              className="font-body-md text-lg font-medium text-gray-900 dark:text-gray-100 p-4 rounded-2xl hover:bg-surface-container-high dark:hover:bg-white/10 transition-colors active:bg-surface-variant flex items-center justify-between group"
-              href="/contact"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Contact
-              <span className="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
-            </Link>
-            <Link 
-              href="/contact"
-              onClick={() => setIsMenuOpen(false)}
-              className="mt-4 bg-primary text-on-primary w-full py-5 rounded-2xl font-body-md text-lg font-medium hover:bg-secondary active:scale-[0.98] transition-all shadow-md text-center inline-block"
-            >
-              Get Quote
-            </Link>
-          </div>
-        </>
+        <nav className="md:hidden absolute top-[5rem] left-0 right-0 p-4 bg-forest-deep flex flex-col items-stretch z-50 border-t border-white/10 shadow-lg">
+          <Link href="/" className="text-white/80 font-[600] text-[0.93rem] py-2 border-b border-white/10" onClick={() => setIsMenuOpen(false)}>Home</Link>
+          <Link href="/products" className="text-white/80 font-[600] text-[0.93rem] py-2 border-b border-white/10" onClick={() => setIsMenuOpen(false)}>Products</Link>
+          <Link href="/industries" className="text-white/80 font-[600] text-[0.93rem] py-2 border-b border-white/10" onClick={() => setIsMenuOpen(false)}>Industries</Link>
+          <Link href="/about" className="text-white/80 font-[600] text-[0.93rem] py-2 border-b border-white/10" onClick={() => setIsMenuOpen(false)}>About</Link>
+          <Link href="/certifications" className="text-white/80 font-[600] text-[0.93rem] py-2 border-b border-white/10" onClick={() => setIsMenuOpen(false)}>Registrations</Link>
+          <Link href="/blogs" className="text-white/80 font-[600] text-[0.93rem] py-2 border-b border-white/10" onClick={() => setIsMenuOpen(false)}>Blogs</Link>
+          <Link href="/contact" className="text-white/80 font-[600] text-[0.93rem] py-2 border-b border-white/10" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+          <Link href="/export-enquiry" className="text-white font-[600] text-[0.93rem] py-2" onClick={() => setIsMenuOpen(false)}>Export enquiry</Link>
+        </nav>
       )}
-    </div>
+    </header>
   );
 }

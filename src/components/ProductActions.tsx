@@ -83,7 +83,7 @@ export default function ProductActions({ productName }: ProductActionsProps) {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-5">
                     <div>
                       <label className="block text-sm font-medium text-on-surface mb-1.5">Full Name *</label>
                       <input required type="text" className="w-full bg-surface-container border border-outline-variant rounded-xl px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary placeholder-on-surface/40" placeholder="e.g. Julianne Smith" />

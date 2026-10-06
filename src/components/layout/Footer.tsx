@@ -1,64 +1,61 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-surface-container-low dark:bg-surface-container-lowest w-full rounded-t-xl mt-20">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-20 max-w-container-max mx-auto">
-        <div className="md:col-span-1">
-          <div className="font-display-lg text-headline-md text-primary dark:text-primary-fixed mb-6">
-            Cocoqube
-          </div>
-          <p className="text-on-surface-variant text-body-md mb-6">
-            Sustainable luxury for global horticultural markets. Crafting excellence from the heart of the tropics.
-          </p>
-          <div className="flex gap-4">
-            <Link className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary hover:bg-secondary hover:text-white transition-all" href="#">
-              <span className="material-symbols-outlined">public</span>
+    <footer className="text-[#c5d9ce] bg-[#052c1d] pt-16 pb-8">
+      <div className="px-5 max-w-[76rem] mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-8 mb-12">
+          
+          <div className="flex flex-col gap-4">
+            <Link href="/" className="inline-flex items-center gap-3 text-white text-decoration-none">
+              <div className="w-[2.8rem] h-[2.8rem] bg-white rounded-full flex items-center justify-center p-[0.2rem]">
+                <Image src="https://cocoqube-global.febi044.chatgpt.site/assets/cocoqube-logo.png" alt="CocoQube" width={40} height={40} className="object-contain" />
+              </div>
+              <strong className="text-[1.25rem] tracking-[0.12em] uppercase">CocoQube</strong>
             </Link>
-            <Link className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary hover:bg-secondary hover:text-white transition-all" href="#">
-              <span className="material-symbols-outlined">mail</span>
-            </Link>
+            <p className="max-w-[29rem] text-[#c5d9ce]">
+              Coco substrates and finished coir products for wholesale and export buyers. Bengaluru, India.
+            </p>
           </div>
-        </div>
-        <div>
-          <h4 className="font-bold text-primary mb-6">Products</h4>
-          <ul className="space-y-4">
-            <li><Link className="text-on-surface-variant hover:text-secondary transition-colors" href="/products">Coco Peat Blocks</Link></li>
-            <li><Link className="text-on-surface-variant hover:text-secondary transition-colors" href="/products">Coir Garden Pots</Link></li>
-            <li><Link className="text-on-surface-variant hover:text-secondary transition-colors" href="/products">Erosion Control Logs</Link></li>
-            <li><Link className="text-on-surface-variant hover:text-secondary transition-colors" href="/products">Hydroponic Grow Bags</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-bold text-primary mb-6">Company</h4>
-          <ul className="space-y-4">
-            <li><Link className="text-on-surface-variant hover:text-secondary transition-colors" href="/about">Our Story</Link></li>
-            <li><Link className="text-on-surface-variant hover:text-secondary transition-colors" href="/sustainability">Sustainability</Link></li>
-            <li><Link className="text-on-surface-variant hover:text-secondary transition-colors" href="/certifications">Certifications</Link></li>
-            <li><Link className="text-on-surface-variant hover:text-secondary transition-colors" href="/export">Global Export</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-bold text-primary mb-6">Newsletter</h4>
-          <p className="text-on-surface-variant text-sm mb-4">
-            Stay updated with our latest sustainable solutions and market insights.
-          </p>
-          <div className="flex">
-            <input
-              className="bg-white border-none rounded-l-full px-4 py-3 w-full focus:ring-1 focus:ring-secondary text-on-surface"
-              placeholder="Email address"
-              type="email"
-            />
-            <button className="bg-secondary text-white px-6 py-3 rounded-r-full hover:bg-primary transition-colors">
-              <span className="material-symbols-outlined">send</span>
-            </button>
+
+          <div>
+            <div className="text-white font-[800] mb-3">Explore</div>
+            <div className="grid gap-2">
+              <Link href="/products" className="text-[#c5d9ce] hover:text-white transition-colors">Products</Link>
+              <Link href="/industries" className="text-[#c5d9ce] hover:text-white transition-colors">Industries</Link>
+              <Link href="/about" className="text-[#c5d9ce] hover:text-white transition-colors">About</Link>
+              <Link href="/certifications" className="text-[#c5d9ce] hover:text-white transition-colors">Registrations</Link>
+              <Link href="/blogs" className="text-[#c5d9ce] hover:text-white transition-colors">Blogs</Link>
+              <Link href="/events" className="text-[#c5d9ce] hover:text-white transition-colors">Events</Link>
+            </div>
           </div>
+
+          <div>
+            <div className="text-white font-[800] mb-3">Enquiries</div>
+            <div className="grid gap-2">
+              <Link href="/wholesale-enquiry" className="text-[#c5d9ce] hover:text-white transition-colors">Wholesale enquiry</Link>
+              <Link href="/export-enquiry" className="text-[#c5d9ce] hover:text-white transition-colors">Export enquiry</Link>
+              <Link href="/contact" className="text-[#c5d9ce] hover:text-white transition-colors">Contact</Link>
+              <a href="https://wa.me/918714352330" target="_blank" rel="noopener noreferrer" className="text-[#c5d9ce] hover:text-white transition-colors">WhatsApp</a>
+            </div>
+          </div>
+
+          <div>
+            <div className="text-white font-[800] mb-3">Contact</div>
+            <div className="grid gap-2">
+              <a href="tel:+918714352330" className="text-[#c5d9ce] hover:text-white transition-colors">+91 87143 52330</a>
+              <a href="https://www.cocoqube.com" target="_blank" rel="noopener noreferrer" className="text-[#c5d9ce] hover:text-white transition-colors">www.cocoqube.com</a>
+              <span className="text-[#c5d9ce]">Bengaluru, India</span>
+            </div>
+          </div>
+          
         </div>
-      </div>
-      <div className="border-t border-outline-variant/30 py-8 text-center px-margin-mobile">
-        <p className="text-on-surface-variant text-sm">
-          © {new Date().getFullYear()} Cocoqube Coir. All rights reserved. Sustainable Luxury.
-        </p>
+        
+        <div className="flex flex-col md:flex-row justify-between gap-4 pt-8 mt-8 border-t border-white/10 text-[#8fac9d] text-[0.85rem]">
+          <span>© {new Date().getFullYear()} CocoQube.</span>
+          <span>Specifications, HSN classification and availability are confirmed per order.</span>
+        </div>
       </div>
     </footer>
   );

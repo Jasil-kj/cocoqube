@@ -1,53 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --color-tertiary-fixed: #ffe088;
-  --color-on-tertiary-container: #4f3e00;
-  --color-surface-container-highest: #e6e2db;
-  --color-secondary: #45664c;
-  --color-primary: #604537;
-  --color-on-background: #1c1c18;
-  --color-surface-variant: #e6e2db;
-  --color-surface-tint: #755849;
-  --color-tertiary-fixed-dim: #e9c349;
-  --color-on-secondary-fixed: #01210d;
-  --color-outline: #82746e;
-  --color-on-error-container: #93000a;
-  --color-inverse-on-surface: #f4f0e9;
-  --color-tertiary-container: #cca830;
-  --color-background: #fdf9f2;
-  --color-error: #ba1a1a;
-  --color-primary-fixed: #ffdbca;
-  --color-surface: #fdf9f2;
-  --color-inverse-primary: #e5bfac;
-  --color-on-secondary: #ffffff;
-  --color-surface-container-lowest: #ffffff;
-  --color-on-primary: #ffffff;
-  --color-primary-container: #7a5c4d;
-  --color-surface-bright: #fdf9f2;
-  --color-secondary-fixed: #c6eccb;
-  --color-primary-fixed-dim: #e5bfac;
-  --color-on-tertiary: #ffffff;
-  --color-secondary-fixed-dim: #abd0b0;
-  --color-secondary-container: #c6eccb;
-  --color-surface-container-low: #f7f3ec;
-  --color-surface-dim: #dddad3;
-  --color-on-surface-variant: #50443f;
-  --color-on-primary-fixed-variant: #5c4133;
-  --color-on-surface: #1c1c18;
-  --color-on-secondary-fixed-variant: #2d4e36;
-  --color-on-tertiary-fixed: #241a00;
-  --color-surface-container-high: #ece8e1;
-  --color-on-tertiary-fixed-variant: #574500;
-  --color-tertiary: #735c00;
-  --color-error-container: #ffdad6;
-  --color-on-secondary-container: #4a6c52;
-  --color-inverse-surface: #31302c;
-  --color-on-primary-fixed: #2b160b;
-  --color-outline-variant: #d3c3bc;
-  --color-on-primary-container: #ffd7c4;
-  --color-on-error: #ffffff;
-  --color-surface-container: #f1ede6;
+  --color-forest: #0b633c;
+  --color-forest-deep: #063923;
+  --color-forest-ink: #102f23;
+  --color-botanical: #2e5e45;
+  --color-aqua: #00a7c8;
+  --color-leaf: #8cc84b;
+  --color-cream: #fafbf7;
+  --color-pale: #e1f1e5;
+  --color-white: #ffffff;
+  --color-coir: #a96832;
+  --color-gold: #c4a25d;
+  --color-muted: #64766e;
+  --color-line: rgba(11, 99, 60, 0.16);
+
+  --color-primary: var(--color-forest);
+  --color-secondary: var(--color-leaf);
+  --color-background: var(--color-cream);
+  --color-surface: var(--color-white);
+  --color-on-surface: var(--color-forest-ink);
+  --color-on-surface-variant: var(--color-muted);
+  --color-outline: var(--color-line);
 
   --spacing-margin-desktop: 80px;
   --spacing-container-max: 1440px;
@@ -55,23 +29,17 @@
   --spacing-margin-mobile: 20px;
   --spacing-gutter: 32px;
 
-  --font-body-md: var(--font-inter), "Inter", sans-serif;
-  --font-headline-lg-mobile: var(--font-playfair), "Playfair Display", serif;
-  --font-label-caps: var(--font-inter), "Inter", sans-serif;
-  --font-headline-md: var(--font-playfair), "Playfair Display", serif;
-  --font-body-lg: var(--font-inter), "Inter", sans-serif;
-  --font-display-lg: var(--font-playfair), "Playfair Display", serif;
-  --font-headline-lg: var(--font-playfair), "Playfair Display", serif;
+  --font-body: "Segoe UI", Inter, Arial, sans-serif;
+  --font-heading: "Segoe UI", Inter, Arial, sans-serif;
 }
 
 @layer utilities {
-  .text-body-md { font-size: 16px; line-height: 1.6; font-weight: 400; }
-  .text-headline-lg-mobile { font-size: 32px; line-height: 1.2; font-weight: 600; }
-  .text-label-caps { font-size: 12px; line-height: 1.4; font-weight: 600; letter-spacing: 0.1em; }
-  .text-headline-md { font-size: 32px; line-height: 1.3; font-weight: 500; }
-  .text-body-lg { font-size: 18px; line-height: 1.6; font-weight: 400; }
-  .text-display-lg { font-size: 64px; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; }
-  .text-headline-lg { font-size: 48px; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; }
+  .text-body-md { font-size: 0.96rem; line-height: 1.62; font-weight: 400; }
+  .text-label-caps { font-size: 0.77rem; line-height: 1.4; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  .text-headline-md { font-size: 1.3rem; line-height: 1.08; font-weight: 600; letter-spacing: -0.035em; }
+  .text-display-lg { font-size: clamp(2.7rem, 5.8vw, 5.25rem); line-height: 1.08; font-weight: 700; letter-spacing: -0.035em; }
+  .text-headline-lg { font-size: clamp(1.9rem, 3.7vw, 3.5rem); line-height: 1.08; font-weight: 600; letter-spacing: -0.035em; }
+  .text-lede { font-size: clamp(1rem, 1.55vw, 1.18rem); }
 }
 
 @layer base {
@@ -79,23 +47,27 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-background text-on-surface font-body-md overflow-x-hidden;
+    @apply bg-background text-on-surface font-body overflow-x-hidden;
+    color: var(--color-forest-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-heading tracking-[-0.035em] leading-[1.08] m-0;
   }
 }
 
 @layer components {
   .glass-nav {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
-  .hero-gradient {
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.1), rgba(253, 249, 242, 1));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(6, 57, 35, .94);
+    border-bottom: 1px solid rgba(255,255,255,.1);
   }
   .card-hover {
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
   }
   .card-hover:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 40px 80px -20px rgba(96, 69, 55, 0.08);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 48px rgba(6,57,35,.12);
   }
 }
